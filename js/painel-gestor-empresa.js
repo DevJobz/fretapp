@@ -55,88 +55,84 @@ class PainelGestorEmpresa {
     }
 
     carregarConteudoAba(aba) {
-        const conteudoAba = document.getElementById('conteudoAba');
+    const conteudoAba = document.getElementById('conteudoAba');
 
-        // Exemplo de conteúdo dinâmico
-        let conteudo = '';
-        switch (aba) {
-            case 'usuarios':
-                conteudo = `
-                    <h2>Gestão de Usuários</h2>
-                    <p>Aqui você pode gerenciar alunos e funcionários.</p>
-                    <h3>Gerar Link de Cadastro</h3>
-                    <select id="tipoCadastro">
-                        <option value="aluno">Aluno</option>
-                        <option value="funcionario">Funcionário</option>
-                    </select>
-                    <button id="gerarLink" class="btn btn-primary">Gerar Link</button>
-                    <p id="linkGerado"></p>
-                    <div class="lista-usuarios">
-                        <h3>Lista de Usuários</h3>
-                        <table id="tabelaUsuarios">
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Tipo</th>
-                                    <th>Matrícula</th>
-                                    <th>Faculdade</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Dados dos usuários serão carregados dinamicamente aqui -->
-                            </tbody>
-                        </table>
-                    </div>
-                `;
-                break;
-            case 'motoristas':
-                conteudo = `
-                    <h2>Gestão de Motoristas</h2>
-                    <p>Aqui você pode gerenciar motoristas e suas atribuições.</p>
-                `;
-                break;
-            case 'rotas':
-                conteudo = `
-                    <h2>Gestão de Rotas</h2>
-                    <p>Aqui você pode definir e otimizar rotas.</p>
-                `;
-                break;
-            case 'veiculos':
-                conteudo = `
-                    <h2>Gestão de Veículos</h2>
-                    <p>Aqui você pode gerenciar veículos e sua disponibilidade.</p>
-                `;
-                break;
-            case 'financeiro':
-                conteudo = `
-                    <h2>Gestão Financeira</h2>
-                    <p>Aqui você pode visualizar e gerar faturas.</p>
-                `;
-                break;
-            case 'relatorios':
-                conteudo = `
-                    <h2>Relatórios</h2>
-                    <p>Aqui você pode acessar relatórios detalhados.</p>
-                `;
-                break;
-            case 'feedbacks':
-                conteudo = `
-                    <h2>Feedbacks</h2>
-                    <p>Aqui você pode visualizar feedbacks dos usuários.</p>
-                `;
-                break;
-            case 'configuracoes':
-                conteudo = `
-                    <h2>Configurações</h2>
-                    <p>Aqui você pode definir políticas e termos.</p>
-                `;
-                break;
-            default:
-                conteudo = `<h2>Selecione uma aba para começar</h2>`;
-        }
-
-case 'sair': {
+    // Exemplo de conteúdo dinâmico
+    let conteudo = '';
+    switch (aba) {
+        case 'usuarios':
+            conteudo = `
+                <h2>Gestão de Usuários</h2>
+                <p>Aqui você pode gerenciar alunos e funcionários.</p>
+                <h3>Gerar Link de Cadastro</h3>
+                <select id="tipoCadastro">
+                    <option value="aluno">Aluno</option>
+                    <option value="funcionario">Funcionário</option>
+                </select>
+                <button id="gerarLink" class="btn btn-primary">Gerar Link</button>
+                <p id="linkGerado"></p>
+                <div class="lista-usuarios">
+                    <h3>Lista de Usuários</h3>
+                    <table id="tabelaUsuarios">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Tipo</th>
+                                <th>Matrícula</th>
+                                <th>Faculdade</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dados dos usuários serão carregados dinamicamente aqui -->
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            break;
+        case 'motoristas':
+            conteudo = `
+                <h2>Gestão de Motoristas</h2>
+                <p>Aqui você pode gerenciar motoristas e suas atribuições.</p>
+            `;
+            break;
+        case 'rotas':
+            conteudo = `
+                <h2>Gestão de Rotas</h2>
+                <p>Aqui você pode definir e otimizar rotas.</p>
+            `;
+            break;
+        case 'veiculos':
+            conteudo = `
+                <h2>Gestão de Veículos</h2>
+                <p>Aqui você pode gerenciar veículos e sua disponibilidade.</p>
+            `;
+            break;
+        case 'financeiro':
+            conteudo = `
+                <h2>Gestão Financeira</h2>
+                <p>Aqui você pode visualizar e gerar faturas.</p>
+            `;
+            break;
+        case 'relatorios':
+            conteudo = `
+                <h2>Relatórios</h2>
+                <p>Aqui você pode acessar relatórios detalhados.</p>
+            `;
+            break;
+        case 'feedbacks':
+            conteudo = `
+                <h2>Feedbacks</h2>
+                <p>Aqui você pode visualizar feedbacks dos usuários.</p>
+            `;
+            break;
+        case 'configuracoes':
+            conteudo = `
+                <h2>Configurações</h2>
+                <p>Aqui você pode definir políticas e termos.</p>
+            `;
+            break;
+        case 'sair':
             // Redirecionar para a página de login ou realizar logout
             window.location.href = '../index.html'; // Altere para a URL de logout ou login
             break;
@@ -144,19 +140,19 @@ case 'sair': {
             conteudo = `<h2>Selecione uma aba para começar</h2>`;
     }
 
-        conteudoAba.innerHTML = conteudo;
+    conteudoAba.innerHTML = conteudo;
 
-        // Re-adicionar o evento de gerar link se a aba for 'usuarios'
-        if (aba === 'usuarios') {
-            document
-                .getElementById('gerarLink')
-                .addEventListener('click', () => {
-                    this.gerarLinkCadastro();
-                });
+    // Re-adicionar o evento de gerar link se a aba for 'usuarios'
+    if (aba === 'usuarios') {
+        document
+            .getElementById('gerarLink')
+            .addEventListener('click', () => {
+                this.gerarLinkCadastro();
+            });
 
-            this.carregarUsuarios();
-        }
+        this.carregarUsuarios();
     }
+}
 
     gerarLinkCadastro() {
         const tipoCadastro = document.getElementById('tipoCadastro').value;
