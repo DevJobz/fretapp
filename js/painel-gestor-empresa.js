@@ -52,107 +52,205 @@ class PainelGestorEmpresa {
                 navLateral.classList.remove('ativo');
             }
         });
+
+        // Evento para o modal de exclusão de conta
+        document
+            .getElementById('btnSimExcluir')
+            .addEventListener('click', () => {
+                this.excluirConta();
+            });
+
+        document
+            .getElementById('btnNaoExcluir')
+            .addEventListener('click', () => {
+                this.fecharModalExclusao();
+            });
     }
 
     carregarConteudoAba(aba) {
-    const conteudoAba = document.getElementById('conteudoAba');
+        const conteudoAba = document.getElementById('conteudoAba');
 
-    // Exemplo de conteúdo dinâmico
-    let conteudo = '';
-    switch (aba) {
-        case 'usuarios':
-            conteudo = `
-                <h2>Gestão de Usuários</h2>
-                <p>Aqui você pode gerenciar alunos e funcionários.</p>
-                <h3>Gerar Link de Cadastro</h3>
-                <select id="tipoCadastro">
-                    <option value="aluno">Aluno</option>
-                    <option value="funcionario">Funcionário</option>
-                </select>
-                <button id="gerarLink" class="btn btn-primary">Gerar Link</button>
-                <p id="linkGerado"></p>
-                <div class="lista-usuarios">
-                    <h3>Lista de Usuários</h3>
-                    <table id="tabelaUsuarios">
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Tipo</th>
-                                <th>Matrícula</th>
-                                <th>Faculdade</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Dados dos usuários serão carregados dinamicamente aqui -->
-                        </tbody>
-                    </table>
-                </div>
-            `;
-            break;
-        case 'motoristas':
-            conteudo = `
-                <h2>Gestão de Motoristas</h2>
-                <p>Aqui você pode gerenciar motoristas e suas atribuições.</p>
-            `;
-            break;
-        case 'rotas':
-            conteudo = `
-                <h2>Gestão de Rotas</h2>
-                <p>Aqui você pode definir e otimizar rotas.</p>
-            `;
-            break;
-        case 'veiculos':
-            conteudo = `
-                <h2>Gestão de Veículos</h2>
-                <p>Aqui você pode gerenciar veículos e sua disponibilidade.</p>
-            `;
-            break;
-        case 'financeiro':
-            conteudo = `
-                <h2>Gestão Financeira</h2>
-                <p>Aqui você pode visualizar e gerar faturas.</p>
-            `;
-            break;
-        case 'relatorios':
-            conteudo = `
-                <h2>Relatórios</h2>
-                <p>Aqui você pode acessar relatórios detalhados.</p>
-            `;
-            break;
-        case 'feedbacks':
-            conteudo = `
-                <h2>Feedbacks</h2>
-                <p>Aqui você pode visualizar feedbacks dos usuários.</p>
-            `;
-            break;
-        case 'configuracoes':
-            conteudo = `
-                <h2>Configurações</h2>
-                <p>Aqui você pode definir políticas e termos.</p>
-            `;
-            break;
-        case 'sair':
-            // Redirecionar para a página de login ou realizar logout
-            window.location.href = '../index.html'; // Altere para a URL de logout ou login
-            break;
-        default:
-            conteudo = `<h2>Selecione uma aba para começar</h2>`;
+        // Exemplo de conteúdo dinâmico
+        let conteudo = '';
+        switch (aba) {
+            case 'usuarios':
+                conteudo = `
+                    <h2>Gestão de Usuários</h2>
+                    <p>Aqui você pode gerenciar alunos e funcionários.</p>
+                    <h3>Gerar Link de Cadastro</h3>
+                    <select id="tipoCadastro">
+                        <option value="aluno">Aluno</option>
+                        <option value="funcionario">Funcionário</option>
+                    </select>
+                    <button id="gerarLink" class="btn btn-primary">Gerar Link</button>
+                    <p id="linkGerado"></p>
+                    <div class="lista-usuarios">
+                        <h3>Lista de Usuários</h3>
+                        <table id="tabelaUsuarios">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Tipo</th>
+                                    <th>Matrícula</th>
+                                    <th>Faculdade</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Dados dos usuários serão carregados dinamicamente aqui -->
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                break;
+            case 'motoristas':
+                conteudo = `
+                    <h2>Gestão de Motoristas</h2>
+                    <p>Aqui você pode gerenciar motoristas e suas atribuições.</p>
+                `;
+                break;
+            case 'rotas':
+                conteudo = `
+                    <h2>Gestão de Rotas</h2>
+                    <p>Aqui você pode definir e otimizar rotas.</p>
+                `;
+                break;
+            case 'veiculos':
+                conteudo = `
+                    <h2>Gestão de Veículos</h2>
+                    <p>Aqui você pode gerenciar veículos e sua disponibilidade.</p>
+                `;
+                break;
+            case 'financeiro':
+                conteudo = `
+                    <h2>Gestão Financeira</h2>
+                    <p>Aqui você pode visualizar e gerar faturas.</p>
+                `;
+                break;
+            case 'relatorios':
+                conteudo = `
+                    <h2>Relatórios</h2>
+                    <p>Aqui você pode acessar relatórios detalhados.</p>
+                `;
+                break;
+            case 'feedbacks':
+                conteudo = `
+                    <h2>Feedbacks</h2>
+                    <p>Aqui você pode visualizar feedbacks dos usuários.</p>
+                `;
+                break;
+            case 'configuracoes':
+                conteudo = `
+                    <h2>Configurações</h2>
+                    <p>Aqui você pode definir políticas e termos.</p>
+                    <div class="dados-empresa">
+                        <h3>Dados da Empresa</h3>
+                        <p>Nome Fantasia: <span id="nomeFantasia"></span></p>
+                        <p>CNPJ: <span id="cnpj"></span></p>
+                        <p>CEP: <span id="cep"></span></p>
+                        <p>Rua: <span id="rua"></span></p>
+                        <p>Número: <span id="numero"></span></p>
+                        <p>Complemento: <span id="complemento"></span></p>
+                        <p>Bairro: <span id="bairro"></span></p>
+                        <p>UF: <span id="uf"></span></p>
+                        <p>Cidade: <span id="cidade"></span></p>
+                        <button id="editarEmpresa" class="btn btn-primary">Editar</button>
+                        <button id="excluirEmpresa" class="btn btn-danger">Excluir Conta</button>
+                    </div>
+                    <div class="inserir-instituicao">
+                        <h3>Inserir Instituição</h3>
+                        <form id="formInstituicao">
+                            <input type="text" id="nomeFantasiaInstituicao" placeholder="Nome Fantasia" required>
+                            <input type="text" id="cnpjInstituicao" placeholder="CNPJ" required>
+                            <input type="text" id="cepInstituicao" placeholder="CEP" required>
+                            <input type="text" id="ruaInstituicao" placeholder="Rua" required>
+                            <input type="text" id="numeroInstituicao" placeholder="Número" required>
+                            <input type="text" id="complementoInstituicao" placeholder="Complemento">
+                            <input type="text" id="bairroInstituicao" placeholder="Bairro" required>
+                            <input type="text" id="ufInstituicao" placeholder="UF" required>
+                            <input type="text" id="cidadeInstituicao" placeholder="Cidade" required>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </form>
+                    </div>
+                    <div class="inserir-empresa">
+                        <h3>Inserir Empresa</h3>
+                        <form id="formEmpresa">
+                            <input type="text" id="nomeFantasiaEmpresa" placeholder="Nome Fantasia" required>
+                            <input type="text" id="cnpjEmpresa" placeholder="CNPJ" required>
+                            <input type="text" id="cepEmpresa" placeholder="CEP" required>
+                            <input type="text" id="ruaEmpresa" placeholder="Rua" required>
+                            <input type="text" id="numeroEmpresa" placeholder="Número" required>
+                            <input type="text" id="complementoEmpresa" placeholder="Complemento">
+                            <input type="text" id="bairroEmpresa" placeholder="Bairro" required>
+                            <input type="text" id="ufEmpresa" placeholder="UF" required>
+                            <input type="text" id="cidadeEmpresa" placeholder="Cidade" required>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </form>
+                    </div>
+                `;
+                break;
+            case 'sair':
+                // Redirecionar para a página de login ou realizar logout
+                window.location.href = '../index.html'; // Altere para a URL de logout ou login
+                break;
+            default:
+                conteudo = `<h2>Selecione uma aba para começar</h2>`;
+        }
+
+        conteudoAba.innerHTML = conteudo;
+
+        // Re-adicionar o evento de gerar link se a aba for 'usuarios'
+        if (aba === 'usuarios') {
+            document
+                .getElementById('gerarLink')
+                .addEventListener('click', () => {
+                    this.gerarLinkCadastro();
+                });
+
+            this.carregarUsuarios();
+        }
+
+        // Carregar dados da empresa na aba de configurações
+        if (aba === 'configuracoes') {
+            this.carregarDadosEmpresa();
+            document
+                .getElementById('excluirEmpresa')
+                .addEventListener('click', () => {
+                    this.abrirModalExclusao();
+                });
+        }
     }
 
-    conteudoAba.innerHTML = conteudo;
-
-    // Re-adicionar o evento de gerar link se a aba for 'usuarios'
-    if (aba === 'usuarios') {
-        document
-            .getElementById('gerarLink')
-            .addEventListener('click', () => {
-                this.gerarLinkCadastro();
-            });
-
-        this.carregarUsuarios();
+    carregarDadosEmpresa() {
+        const empresa = JSON.parse(localStorage.getItem('empresa'));
+        if (empresa) {
+            document.getElementById('nomeFantasia').textContent = empresa.nomeFantasia;
+            document.getElementById('cnpj').textContent = empresa.cnpj;
+            document.getElementById('cep').textContent = empresa.endereco.cep;
+            document.getElementById('rua').textContent = empresa.endereco.rua;
+            document.getElementById('numero').textContent = empresa.endereco.numero;
+            document.getElementById('complemento').textContent = empresa.endereco.complemento;
+            document.getElementById('bairro').textContent = empresa.endereco.bairro;
+            document.getElementById('uf').textContent = empresa.endereco.uf;
+            document.getElementById('cidade').textContent = empresa.endereco.cidade;
+        }
     }
-}
+
+    abrirModalExclusao() {
+        document.getElementById('modalExcluirConta').style.display = 'block';
+    }
+
+    fecharModalExclusao() {
+        document.getElementById('modalExcluirConta').style.display = 'none';
+    }
+
+    excluirConta() {
+        localStorage.removeItem('empresa');
+        localStorage.removeItem('usuarios');
+        localStorage.removeItem('funcionarios');
+        alert('Conta excluída com sucesso!');
+        window.location.href = '../index.html';
+    }
 
     gerarLinkCadastro() {
         const tipoCadastro = document.getElementById('tipoCadastro').value;
