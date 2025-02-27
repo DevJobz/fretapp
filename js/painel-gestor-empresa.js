@@ -136,6 +136,14 @@ class PainelGestorEmpresa {
                 conteudo = `<h2>Selecione uma aba para começar</h2>`;
         }
 
+case 'sair':
+            // Redirecionar para a página de login ou realizar logout
+            window.location.href = '../index.html'; // Altere para a URL de logout ou login
+            break;
+        default:
+            conteudo = `<h2>Selecione uma aba para começar</h2>`;
+    }
+
         conteudoAba.innerHTML = conteudo;
 
         // Re-adicionar o evento de gerar link se a aba for 'usuarios'
