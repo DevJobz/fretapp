@@ -107,6 +107,15 @@ body {
     animation: fadeIn 0.5s ease;
 }
 
+.nav-links a[data-aba="sair"] {
+    background-color: #ff4d4d;
+    color: #fff;
+}
+
+.nav-links a[data-aba="sair"]:hover {
+    background-color: #ff1a1a;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
