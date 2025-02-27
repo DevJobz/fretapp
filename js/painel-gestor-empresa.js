@@ -134,7 +134,6 @@ class PainelGestorEmpresa {
                 break;
             default:
                 conteudo = `<h2>Selecione uma aba para começar</h2>`;
-        }
 
 case 'sair':
             // Redirecionar para a página de login ou realizar logout
