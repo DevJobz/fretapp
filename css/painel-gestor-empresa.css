@@ -1,0 +1,142 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos globais */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Nav Lateral */
+.nav-lateral {
+    width: 250px;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #fff;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+}
+
+.nav-lateral .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-lateral .logo i {
+    font-size: 2rem;
+}
+
+.nav-lateral .logo span {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.nav-links {
+    list-style: none;
+}
+
+.nav-links li {
+    margin-bottom: 1rem;
+}
+
+.nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.75rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-links a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-links a i {
+    font-size: 1.25rem;
+}
+
+/* Conteúdo Principal */
+.conteudo-principal {
+    flex: 1;
+    background-color: #fff;
+    padding: 1.5rem;
+}
+
+.cabecalho {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.cabecalho .menu-hamburguer {
+    display: none;
+    background: none;
+    border: none;
+    color: #2575fc;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.cabecalho h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #444;
+}
+
+.conteudo-aba {
+    background: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .nav-lateral {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        height: 100vh;
+        z-index: 1000;
+    }
+
+    .nav-lateral.ativo {
+        transform: translateX(250px);
+    }
+
+    .cabecalho .menu-hamburguer {
+        display: block;
+    }
+
+    .conteudo-principal {
+        margin-left: 0;
+    }
+}

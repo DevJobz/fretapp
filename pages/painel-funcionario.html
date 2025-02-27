@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Painel do Funcionário - Transporte App</title>
+        <link rel="stylesheet" href="../css/painel-funcionario.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Painel do Funcionário</h1>
+            <div class="abas">
+                <button class="aba" data-aba="informacoes">
+                    Informações Pessoais
+                </button>
+                <button class="aba" data-aba="presenca">
+                    Gestão de Presença
+                </button>
+                <button class="aba" data-aba="rotas">Rotas e Pontos</button>
+                <button class="aba" data-aba="rastreamento">
+                    Rastreamento
+                </button>
+            </div>
+            <div id="conteudoAba" class="conteudo-aba">
+                <!-- Conteúdo dinâmico será carregado aqui -->
+            </div>
+        </div>
+        <script src="../js/painel-funcionario.js"></script>
+    </body>
+</html>

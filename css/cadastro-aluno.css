@@ -1,0 +1,222 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos globais */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+.container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2.5rem;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    position: relative; /* Para posicionar o botão de voltar */
+}
+
+/* Estilo para a lista suspensa (select) */
+select.input-field {
+    appearance: none; /* Remove o estilo padrão do navegador */
+    -webkit-appearance: none; /* Remove o estilo padrão no Safari */
+    -moz-appearance: none; /* Remove o estilo padrão no Firefox */
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    color: #fff;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e"); /* Ícone de seta personalizado */
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1.5rem;
+}
+
+select.input-field:focus {
+    border-color: #fff;
+    outline: none;
+}
+
+/* Estilo para as opções (options) */
+select.input-field option {
+    background-color: #6a11cb; /* Cor de fundo das opções */
+    color: #fff; /* Cor do texto das opções */
+    padding: 0.5rem; /* Espaçamento interno */
+    font-size: 0.9rem; /* Tamanho da fonte */
+    border-radius: 4px; /* Bordas arredondadas */
+    margin: 0.25rem 0; /* Espaçamento entre as opções */
+}
+
+/* Efeito hover para as opções */
+select.input-field option:hover {
+    background-color: #2575fc; /* Cor de fundo ao passar o mouse */
+}
+
+/* Efeito hover para a lista suspensa */
+select.input-field:hover {
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Botão de voltar */
+.btn-voltar {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.btn-voltar:hover {
+    color: #fff;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #fff;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: left;
+}
+
+.input-field {
+    padding: 0.75rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    font-size: 1rem;
+    background: transparent;
+    color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+    border-color: #fff;
+    outline: none;
+}
+
+.input-field::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.termos {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.termos label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.btn {
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #fff;
+    color: #2575fc;
+}
+
+.btn-primary:hover {
+    background-color: #e0e0e0;
+}
+
+/* Mensagens de erro */
+.erro-mensagem {
+    color: #ff6b6b;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: none;
+}
+
+/* Mensagem de sucesso */
+.mensagem-sucesso {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+    .container {
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    .input-field {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .termos label {
+        font-size: 0.8rem;
+    }
+
+    .btn-voltar {
+        font-size: 1.25rem;
+    }
+}
