@@ -70,12 +70,12 @@
                         <span>Configurações</span>
                     </a>
                 </li>
-                    <li>
-        <a href="#" data-aba="sair">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Sair</span>
-        </a>
-    </li>
+                <li>
+                    <a href="#" data-aba="sair">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sair</span>
+                    </a>
+                </li>
             </ul>
         </nav>
 
@@ -92,6 +92,17 @@
                 <!-- Conteúdo dinâmico será carregado aqui -->
             </div>
         </main>
+
+        <!-- Modal de Exclusão de Conta -->
+        <div id="modalExcluirConta" class="modal">
+            <div class="modal-conteudo">
+                <p>Você quer realmente excluir sua empresa?</p>
+                <div class="modal-botoes">
+                    <button id="btnSimExcluir">Sim</button>
+                    <button id="btnNaoExcluir">Não</button>
+                </div>
+            </div>
+        </div>
 
         <script src="../js/painel-gestor-empresa.js"></script>
     </body>
