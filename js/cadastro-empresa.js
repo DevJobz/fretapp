@@ -11,6 +11,19 @@ document
             return;
         }
 
+// Função para mostrar mensagens de erro
+function mostrarErro(id, mensagem) {
+    const erroElemento = document.getElementById(id);
+    erroElemento.textContent = mensagem;
+    erroElemento.style.display = 'block';
+}
+
+// Função para esconder mensagens de erro
+function esconderErro(id) {
+    const erroElemento = document.getElementById(id);
+    erroElemento.style.display = 'none';
+}
+
 // Validação de CEP (8 dígitos)
 document.getElementById('cep').addEventListener('input', function (e) {
     let cep = e.target.value.replace(/\D/g, '');
