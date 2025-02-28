@@ -70,6 +70,38 @@ document.addEventListener('DOMContentLoaded', function () {
         e.target.value = telefone;
     });
 
+// Validação de CEP (8 dígitos)
+document.getElementById('cep').addEventListener('input', function (e) {
+    let cep = e.target.value.replace(/\D/g, '');
+    if (cep.length > 8) {
+        cep = cep.substring(0, 8); // Limita a 8 dígitos
+    }
+    e.target.value = cep;
+});
+
+// Validação de Senha (mínimo 6 caracteres)
+document.getElementById('senha').addEventListener('input', function (e) {
+    const senha = e.target.value;
+    if (senha.length < 6) {
+        mostrarErro('erroSenha', 'A senha deve ter no mínimo 6 caracteres.');
+    } else {
+        esconderErro('erroSenha');
+    }
+});
+
+// Validação de Confirmação de Senha
+document
+    .getElementById('confirmarSenha')
+    .addEventListener('input', function (e) {
+        const senha = document.getElementById('senha').value;
+        const confirmarSenha = e.target.value;
+        if (senha !== confirmarSenha) {
+            mostrarErro('erroConfirmarSenha', 'As senhas não coincidem.');
+        } else {
+            esconderErro('erroConfirmarSenha');
+        }
+    });
+
     // Validação de Data de Nascimento
     document
         .getElementById('dataNascimento')
