@@ -112,6 +112,63 @@ body {
     color: #fff;
 }
 
+/* Modal de Exclusão de Conta */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-conteudo {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-botoes {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.modal-botoes button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.modal-botoes button#btnSimExcluir {
+    background-color: #ff4d4d;
+    color: #fff;
+}
+
+.modal-botoes button#btnSimExcluir:hover {
+    background-color: #ff1a1a;
+}
+
+.modal-botoes button#btnNaoExcluir {
+    background-color: #2575fc;
+    color: #fff;
+}
+
+.modal-botoes button#btnNaoExcluir:hover {
+    background-color: #1a5bbf;
+}
+
 .nav-links a[data-aba="sair"]:hover {
     background-color: #ff1a1a;
 }
