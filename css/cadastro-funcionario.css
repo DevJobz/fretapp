@@ -29,6 +29,50 @@ body {
     position: relative; /* Para posicionar o botão de voltar */
 }
 
+/* Estilo para a lista suspensa (select) */
+select.input-field {
+    appearance: none; /* Remove o estilo padrão do navegador */
+    -webkit-appearance: none; /* Remove o estilo padrão no Safari */
+    -moz-appearance: none; /* Remove o estilo padrão no Firefox */
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    color: #fff;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e"); /* Ícone de seta personalizado */
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1.5rem;
+}
+
+select.input-field:focus {
+    border-color: #fff;
+    outline: none;
+}
+
+/* Estilo para as opções (options) */
+select.input-field option {
+    background-color: #6a11cb; /* Cor de fundo das opções */
+    color: #fff; /* Cor do texto das opções */
+    padding: 0.5rem; /* Espaçamento interno */
+    font-size: 0.9rem; /* Tamanho da fonte */
+    border-radius: 4px; /* Bordas arredondadas */
+    margin: 0.25rem 0; /* Espaçamento entre as opções */
+}
+
+/* Efeito hover para as opções */
+select.input-field option:hover {
+    background-color: #2575fc; /* Cor de fundo ao passar o mouse */
+}
+
+/* Efeito hover para a lista suspensa */
+select.input-field:hover {
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
 /* Botão de voltar */
 .btn-voltar {
     position: absolute;
@@ -116,6 +160,36 @@ label {
 
 .btn-primary:hover {
     background-color: #e0e0e0;
+}
+
+/* Mensagens de erro */
+.erro-mensagem {
+    color: #ff6b6b;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: none;
+}
+
+/* Mensagem de sucesso */
+.mensagem-sucesso {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Responsividade */
