@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Simulação de dados pré-preenchidos (empresa e matrícula)
-    const empresaRelacionamento = localStorage.getItem('empresaRelacionamento') || 'Empresa XYZ';
+    // Obtém o nome fantasia da empresa da URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const empresaRelacionamento = urlParams.get('empresa'
     const matricula = gerarMatricula(); // Gera uma matrícula única
 
-    document.getElementById('empresaRelacionamento').value =
-        empresaRelacionamento;
+    // Preenche o campo "Empresa de Relacionamento"
+    document.getElementById('empresaRelacionamento').value = empresaRelacionamento;
     document.getElementById('matricula').value = matricula;
 
     // Formatação de CPF
