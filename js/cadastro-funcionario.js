@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Simulação de dados pré-preenchidos (empresa e matrícula)
-    const empresaRelacionamento = 'Empresa XYZ';
-    const matricula = 'FUNC2023001'; // Gerado automaticamente
+    const empresaRelacionamento = localStorage.getItem('empresaRelacionamento') || 'Empresa XYZ';
+    const matricula = gerarMatricula(); // Gera uma matrícula única
 
     document.getElementById('empresaRelacionamento').value =
         empresaRelacionamento;
@@ -168,6 +168,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 window.location.href = 'login.html';
             }, 2000);
         });
+
+    // Função para gerar matrícula única
+    function gerarMatricula() {
+        const funcionarios = JSON.parse(localStorage.getItem('funcionarios')) || [];
+        let ultimaMatricula = 0;
+
+        // Encontra a última matrícula cadastrada
+        if (funcionarios.length > 0) {
+            ultimaMatricula = parseInt(
+                funcionarios[funcionarios.length - 1].matricula,
+                10
+            );
+        }
+
+        // Gera a nova matrícula
+        const novaMatricula = String(ultimaMatricula + 1).padStart(4, '0');
+        return novaMatricula;
+    }
 
     // Função para mostrar mensagens de erro
     function mostrarErro(id, mensagem) {
