@@ -51,13 +51,53 @@ document.addEventListener('DOMContentLoaded', function () {
         if (cep.length > 8) {
             cep = cep.substring(0, 8); // Limita a 8 dígitos
         }
+        if (cep.length > 5) {
+            cep = cep.replace(/^(\d{5})(\d{3})$/, '$1-$2');
+        }
         e.target.value = cep;
 
         // Valida se o CEP tem 8 dígitos
-        if (cep.length !== 8) {
+        if (cep.replace(/\D/g, '').length !== 8) {
             mostrarErro('erroCep', 'CEP deve ter 8 dígitos.');
         } else {
             esconderErro('erroCep');
+        }
+    });
+
+    // Formatação de Telefone
+    document.getElementById('telefone').addEventListener('input', function (e) {
+        let telefone = e.target.value.replace(/\D/g, '');
+        if (telefone.length > 11) {
+            telefone = telefone.substring(0, 11); // Limita a 11 dígitos
+        }
+        if (telefone.length > 10) {
+            telefone = telefone.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+        } else if (telefone.length > 6) {
+            telefone = telefone.replace(/^(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3');
+        } else if (telefone.length > 2) {
+            telefone = telefone.replace(/^(\d{2})(\d{4})$/, '($1) $2');
+        }
+        e.target.value = telefone;
+
+        // Valida se o telefone tem 11 dígitos
+        if (telefone.replace(/\D/g, '').length !== 11) {
+            mostrarErro('erroTelefone', 'Telefone deve ter 11 dígitos.');
+        } else {
+            esconderErro('erroTelefone');
+        }
+    });
+
+    // Validação de E-mail
+    document.getElementById('email').addEventListener('blur', function (e) {
+        const email = e.target.value;
+        const empresas = JSON.parse(localStorage.getItem('empresas')) || [];
+        const emailExistente = empresas.find(
+            (empresa) => empresa.email === email
+        );
+        if (emailExistente) {
+            mostrarErro('erroEmail', 'E-mail já cadastrado.');
+        } else {
+            esconderErro('erroEmail');
         }
     });
 
@@ -185,11 +225,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const mensagemSucesso = document.getElementById('mensagemSucesso');
             mensagemSucesso.style.display = 'block';
 
-            // Limpa o formulário após 2 segundos e redireciona para o login
+            // Limpa o formulário após 2 segundos e redireciona para o painel
             setTimeout(() => {
                 mensagemSucesso.style.display = 'none';
                 document.getElementById('cadastroEmpresaForm').reset();
-                window.location.href = 'login.html';
+                window.location.href = 'painel-gestor-empresa.html';
             }, 2000);
         });
 
