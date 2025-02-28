@@ -1,16 +1,41 @@
-document
-    .getElementById('loginForm')
-    .addEventListener('submit', function (event) {
-        event.preventDefault();
+document.addEventListener('DOMContentLoaded', function () {
+    // Submissão do formulário de login
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+        e.preventDefault();
 
         const userType = document.getElementById('userType').value;
         const identifier = document.getElementById('identifier').value;
         const password = document.getElementById('password').value;
 
-        // Simulação de autenticação
-        if (identifier && password) {
-            alert(`Login bem-sucedido como ${userType}`);
-            // Redirecionamento para o painel correspondente
+        // Busca o usuário no localStorage
+        const empresas = JSON.parse(localStorage.getItem('empresas')) || [];
+        const alunos = JSON.parse(localStorage.getItem('alunos')) || [];
+        const funcionarios = JSON.parse(localStorage.getItem('funcionarios')) || [];
+
+        const usuario =
+            empresas.find(
+                (empresa) =>
+                    (empresa.email === identifier ||
+                     empresa.cpfGestor === identifier) &&
+                    empresa.senha === password
+            ) ||
+            alunos.find(
+                (aluno) =>
+                    (aluno.email === identifier ||
+                     aluno.cpf === identifier ||
+                     aluno.matricula === identifier) &&
+                    aluno.senha === password
+            ) ||
+            funcionarios.find(
+                (funcionario) =>
+                    (funcionario.email === identifier ||
+                     funcionario.cpf === identifier ||
+                     funcionario.matricula === identifier) &&
+                    funcionario.senha === password
+            );
+
+        if (usuario) {
+            // Redireciona para o painel correspondente
             switch (userType) {
                 case 'aluno':
                     window.location.href = 'painel-aluno.html';
@@ -32,6 +57,8 @@ document
                     break;
             }
         } else {
-            alert('Por favor, preencha todos os campos.');
+            // Exibe mensagem de erro
+            document.getElementById('mensagemErro').style.display = 'block';
         }
     });
+});
