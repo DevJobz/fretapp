@@ -8,6 +8,19 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('matricula').value = matricula;
 });
 
+// Função para mostrar mensagens de erro
+function mostrarErro(id, mensagem) {
+    const erroElemento = document.getElementById(id);
+    erroElemento.textContent = mensagem;
+    erroElemento.style.display = 'block';
+}
+
+// Função para esconder mensagens de erro
+function esconderErro(id) {
+    const erroElemento = document.getElementById(id);
+    erroElemento.style.display = 'none';
+}
+
 document
     .getElementById('cadastroFuncionarioForm')
     .addEventListener('submit', function (event) {
