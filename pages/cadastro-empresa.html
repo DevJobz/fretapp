@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Cadastro de Empresa - Fretapp</title>
+        <title>Cadastro de Empresa - Transporte App</title>
         <link rel="stylesheet" href="../css/cadastro-empresa.css" />
         <link
             rel="stylesheet"
@@ -26,6 +26,7 @@
                     class="input-field"
                     required
                 />
+                <span class="erro-mensagem" id="erroNomeGestor"></span>
 
                 <label for="cpfGestor">CPF do Gestor:</label>
                 <input
@@ -35,6 +36,7 @@
                     class="input-field"
                     required
                 />
+                <span class="erro-mensagem" id="erroCpfGestor"></span>
 
                 <label for="email">E-mail:</label>
                 <input
@@ -44,6 +46,7 @@
                     class="input-field"
                     required
                 />
+                <span class="erro-mensagem" id="erroEmail"></span>
 
                 <label for="telefone">Telefone:</label>
                 <input
@@ -53,6 +56,7 @@
                     class="input-field"
                     required
                 />
+                <span class="erro-mensagem" id="erroTelefone"></span>
 
                 <label for="nomeFantasia">Nome Fantasia da Empresa:</label>
                 <input
@@ -62,6 +66,7 @@
                     class="input-field"
                     required
                 />
+                <span class="erro-mensagem" id="erroNomeFantasia"></span>
 
                 <label for="cnpj">CNPJ:</label>
                 <input
@@ -71,6 +76,7 @@
                     class="input-field"
                     required
                 />
+                <span class="erro-mensagem" id="erroCnpj"></span>
 
                 <label for="cep">CEP:</label>
                 <input
@@ -80,6 +86,7 @@
                     class="input-field"
                     required
                 />
+                <span class="erro-mensagem" id="erroCep"></span>
 
                 <label for="rua">Rua:</label>
                 <input
@@ -89,6 +96,7 @@
                     class="input-field"
                     required
                 />
+                <span class="erro-mensagem" id="erroRua"></span>
 
                 <label for="numero">Número:</label>
                 <input
@@ -98,6 +106,7 @@
                     class="input-field"
                     required
                 />
+                <span class="erro-mensagem" id="erroNumero"></span>
 
                 <label for="complemento">Complemento:</label>
                 <input
@@ -115,6 +124,7 @@
                     class="input-field"
                     required
                 />
+                <span class="erro-mensagem" id="erroBairro"></span>
 
                 <label for="uf">UF:</label>
                 <input
@@ -124,6 +134,7 @@
                     class="input-field"
                     required
                 />
+                <span class="erro-mensagem" id="erroUf"></span>
 
                 <label for="cidade">Cidade:</label>
                 <input
@@ -133,6 +144,7 @@
                     class="input-field"
                     required
                 />
+                <span class="erro-mensagem" id="erroCidade"></span>
 
                 <label for="senha">Senha:</label>
                 <input
@@ -142,6 +154,7 @@
                     class="input-field"
                     required
                 />
+                <span class="erro-mensagem" id="erroSenha"></span>
 
                 <label for="confirmarSenha">Confirmar Senha:</label>
                 <input
@@ -151,6 +164,7 @@
                     class="input-field"
                     required
                 />
+                <span class="erro-mensagem" id="erroConfirmarSenha"></span>
 
                 <div class="termos">
                     <input
@@ -163,9 +177,15 @@
                         >Aceito os termos e condições</label
                     >
                 </div>
+                <span class="erro-mensagem" id="erroTermos"></span>
 
                 <button type="submit" class="btn btn-primary">Cadastrar</button>
             </form>
+
+            <!-- Mensagem de sucesso -->
+            <div id="mensagemSucesso" class="mensagem-sucesso">
+                Cadastro realizado com sucesso!
+            </div>
         </div>
         <script src="../js/cadastro-empresa.js"></script>
     </body>
