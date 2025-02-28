@@ -253,15 +253,16 @@ class PainelGestorEmpresa {
     }
 
     gerarLinkCadastro() {
-        const tipoCadastro = document.getElementById('tipoCadastro').value;
-        const linkBase = window.location.origin; // URL base do site
-        const linkCadastro = `${linkBase}/pages/cadastro-${tipoCadastro}.html`;
+    const tipoCadastro = document.getElementById('tipoCadastro').value;
+    const linkBase = window.location.origin; // URL base do site
+    const nomeFantasia = localStorage.getItem('empresaRelacionamento'); // Nome fantasia da empresa
+    const linkCadastro = `${linkBase}/pages/cadastro-${tipoCadastro}.html?empresa=${encodeURIComponent(nomeFantasia)}`;
 
-        // Exibe o link gerado
-        document.getElementById(
-            'linkGerado'
-        ).innerHTML = `Link de cadastro: <a href="${linkCadastro}" target="_blank">${linkCadastro}</a>`;
-    }
+    // Exibe o link gerado
+    document.getElementById(
+        'linkGerado'
+    ).innerHTML = `Link de cadastro: <a href="${linkCadastro}" target="_blank">${linkCadastro}</a>`;
+}
 
     carregarUsuarios() {
         const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
