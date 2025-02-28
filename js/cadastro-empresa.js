@@ -178,6 +178,9 @@ document.addEventListener('DOMContentLoaded', function () {
             empresas.push(empresa);
             localStorage.setItem('empresas', JSON.stringify(empresas));
 
+            // Salva o nome fantasia para uso posterior
+            localStorage.setItem('empresaRelacionamento', empresa.nomeFantasia);
+
             // Exibe a mensagem de sucesso
             const mensagemSucesso = document.getElementById('mensagemSucesso');
             mensagemSucesso.style.display = 'block';
