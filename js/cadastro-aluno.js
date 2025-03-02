@@ -1,45 +1,96 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Obtém o nome fantasia da empresa da URL
     const urlParams = new URLSearchParams(window.location.search);
     const empresaRelacionamento = urlParams.get('empresa');
-    const matricula = gerarMatricula(); // Gera uma matrícula única
+    const matricula = gerarMatriculaAluno();
+
+    const selectFaculdade = document.getElementById('faculdade');
+    const empresaAtiva = JSON.parse(localStorage.getItem('empresaAtiva'));
+    const instituicoes = empresaAtiva?.instituicoes || [];
+
     // Preenche o campo "Empresa de Relacionamento"
-    document.getElementById('empresaRelacionamento').value = empresaRelacionamento;
+    document.getElementById('empresaRelacionamento').value =
+        empresaRelacionamento;
+
+    // Preenche o campo "Matrícula"
     document.getElementById('matricula').value = matricula;
 
-    // Simulação de lista de faculdades (pode ser carregada dinamicamente)
-    const faculdades = ['Faculdade A', 'Faculdade B', 'Faculdade C'];
-    const selectFaculdade = document.getElementById('faculdade');
-
-    faculdades.forEach((faculdade) => {
+    // Preenche a lista de faculdades
+    selectFaculdade.innerHTML =
+        '<option value="">Selecione uma faculdade</option>';
+    instituicoes.forEach((instituicao) => {
         const option = document.createElement('option');
-        option.value = faculdade;
-        option.textContent = faculdade;
+        option.value = instituicao.nomeFantasia;
+        option.textContent = instituicao.nomeFantasia;
         selectFaculdade.appendChild(option);
     });
 
-// Função para mostrar mensagens de erro
-function mostrarErro(id, mensagem) {
-    const erroElemento = document.getElementById(id);
-    erroElemento.textContent = mensagem;
-    erroElemento.style.display = 'block';
-}
+    // Validação de Nome Completo (apenas letras e mínimo de 8 caracteres)
+    document
+        .getElementById('nomeCompleto')
+        .addEventListener('input', function (e) {
+            const nomeCompleto = e.target.value;
+            const regex = /^[A-Za-zÀ-ú\s]{8,}$/;
+            if (!regex.test(nomeCompleto)) {
+                mostrarErro(
+                    'erroNomeCompleto',
+                    'Nome deve conter apenas letras e no mínimo 8 caracteres.'
+                );
+            } else {
+                esconderErro('erroNomeCompleto');
+            }
+        });
 
-// Função para esconder mensagens de erro
-function esconderErro(id) {
-    const erroElemento = document.getElementById(id);
-    erroElemento.style.display = 'none';
-}
+    // Validação da data de nascimento
+    document
+        .getElementById('dataNascimento')
+        .addEventListener('change', function (e) {
+            const dataNascimento = new Date(e.target.value);
+            const hoje = new Date();
+            const idadeMinima = new Date(
+                hoje.getFullYear() - 110,
+                hoje.getMonth(),
+                hoje.getDate()
+            );
+            if (dataNascimento > hoje || dataNascimento < idadeMinima) {
+                mostrarErro(
+                    'erroDataNascimento',
+                    'Data de nascimento inválida.'
+                );
+            } else {
+                esconderErro('erroDataNascimento');
+            }
+        });
 
-    // Formatação de CEP
+    // Função para mostrar mensagens de erro
+    function mostrarErro(id, mensagem) {
+        const erroElemento = document.getElementById(id);
+        erroElemento.textContent = mensagem;
+        erroElemento.style.display = 'block';
+    }
+
+    // Função para esconder mensagens de erro
+    function esconderErro(id) {
+        const erroElemento = document.getElementById(id);
+        erroElemento.style.display = 'none';
+    }
+
+    // Formatação do CEP (igual ao do funcionário)
     document.getElementById('cep').addEventListener('input', function (e) {
         let cep = e.target.value.replace(/\D/g, '');
+        if (cep.length > 8) {
+            cep = cep.substring(0, 8);
+        }
         if (cep.length > 5) {
-            cep = cep.replace(/^(\d{2})(\d{3})(\d{3})$/, '$1.$2-$3');
-        } else if (cep.length > 2) {
-            cep = cep.replace(/^(\d{2})(\d{3})$/, '$1.$2');
+            cep = cep.replace(/^(\d{5})(\d{3})$/, '$1-$2');
         }
         e.target.value = cep;
+
+        // Validação
+        if (cep.replace(/\D/g, '').length !== 8) {
+            mostrarErro('erroCep', 'CEP deve ter 8 dígitos.');
+        } else {
+            esconderErro('erroCep');
+        }
     });
 
     // Formatação de CPF
@@ -65,9 +116,18 @@ function esconderErro(id) {
         }
     });
 
-    // Formatação de Telefone
     document.getElementById('telefone').addEventListener('input', function (e) {
+        // Remove todos os caracteres não numéricos
         let telefone = e.target.value.replace(/\D/g, '');
+
+        // Validação: Verifica se o telefone tem 10 ou 11 dígitos
+        if (telefone.length < 10 || telefone.length > 11) {
+            mostrarErro('erroTelefone', 'Telefone deve ter 10 ou 11 dígitos.');
+        } else {
+            esconderErro('erroTelefone');
+        }
+
+        // Formatação: Aplica a máscara de telefone
         if (telefone.length > 10) {
             telefone = telefone.replace(
                 /^(\d{2})(\d{5})(\d{4})$/,
@@ -81,40 +141,45 @@ function esconderErro(id) {
         } else if (telefone.length > 2) {
             telefone = telefone.replace(/^(\d{2})(\d{4})$/, '($1) $2');
         }
+
+        // Atualiza o valor do campo com a formatação aplicada
         e.target.value = telefone;
     });
 
-// Validação de CEP (8 dígitos)
-document.getElementById('cep').addEventListener('input', function (e) {
-    let cep = e.target.value.replace(/\D/g, '');
-    if (cep.length > 8) {
-        cep = cep.substring(0, 8); // Limita a 8 dígitos
-    }
-    e.target.value = cep;
-});
+    // Validação de CEP (8 dígitos)
+    document.getElementById('cep').addEventListener('input', function (e) {
+        let cep = e.target.value.replace(/\D/g, '');
+        if (cep.length > 8) {
+            cep = cep.substring(0, 8); // Limita a 8 dígitos
+        }
+        e.target.value = cep;
+    });
 
-// Validação de Senha (mínimo 6 caracteres)
-document.getElementById('senha').addEventListener('input', function (e) {
-    const senha = e.target.value;
-    if (senha.length < 6) {
-        mostrarErro('erroSenha', 'A senha deve ter no mínimo 6 caracteres.');
-    } else {
-        esconderErro('erroSenha');
-    }
-});
-
-// Validação de Confirmação de Senha
-document
-    .getElementById('confirmarSenha')
-    .addEventListener('input', function (e) {
-        const senha = document.getElementById('senha').value;
-        const confirmarSenha = e.target.value;
-        if (senha !== confirmarSenha) {
-            mostrarErro('erroConfirmarSenha', 'As senhas não coincidem.');
+    // Validação de Senha (mínimo 6 caracteres)
+    document.getElementById('senha').addEventListener('input', function (e) {
+        const senha = e.target.value;
+        if (senha.length < 6) {
+            mostrarErro(
+                'erroSenha',
+                'A senha deve ter no mínimo 6 caracteres.'
+            );
         } else {
-            esconderErro('erroConfirmarSenha');
+            esconderErro('erroSenha');
         }
     });
+
+    // Validação de Confirmação de Senha
+    document
+        .getElementById('confirmarSenha')
+        .addEventListener('input', function (e) {
+            const senha = document.getElementById('senha').value;
+            const confirmarSenha = e.target.value;
+            if (senha !== confirmarSenha) {
+                mostrarErro('erroConfirmarSenha', 'As senhas não coincidem.');
+            } else {
+                esconderErro('erroConfirmarSenha');
+            }
+        });
 
     // Validação de Data de Nascimento
     document
@@ -158,6 +223,33 @@ document
         }
     });
 
+    // Validação de Estado e Cidade (apenas letras)
+    document.getElementById('uf').addEventListener('input', function (e) {
+        const uf = e.target.value;
+        const regex = /^[A-Za-zÀ-ú\s]{2}$/;
+        if (!regex.test(uf)) {
+            mostrarErro(
+                'erroUf',
+                'UF deve conter apenas letras e ter 2 caracteres.'
+            );
+        } else {
+            esconderErro('erroUf');
+        }
+    });
+
+    document.getElementById('cidade').addEventListener('input', function (e) {
+        const cidade = e.target.value;
+        const regex = /^[A-Za-zÀ-ú\s]{3,}$/;
+        if (!regex.test(cidade)) {
+            mostrarErro(
+                'erroCidade',
+                'Cidade deve conter apenas letras e no mínimo 3 caracteres.'
+            );
+        } else {
+            esconderErro('erroCidade');
+        }
+    });
+
     // Validação de Telefone único
     document.getElementById('telefone').addEventListener('blur', function (e) {
         const telefone = e.target.value.replace(/\D/g, '');
@@ -173,19 +265,14 @@ document
     });
 
     // Função para gerar matrícula única
-    function gerarMatricula() {
-        const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+    function gerarMatriculaAluno() {
+        const alunos = JSON.parse(localStorage.getItem('alunos')) || [];
         let ultimaMatricula = 0;
 
-        // Encontra a última matrícula cadastrada
-        if (usuarios.length > 0) {
-            ultimaMatricula = parseInt(
-                usuarios[usuarios.length - 1].matricula,
-                10
-            );
+        if (alunos.length > 0) {
+            ultimaMatricula = parseInt(alunos[alunos.length - 1].matricula, 10);
         }
 
-        // Gera a nova matrícula
         const novaMatricula = String(ultimaMatricula + 1).padStart(4, '0');
         return novaMatricula;
     }
@@ -252,17 +339,19 @@ document
             }
 
             // Cria o objeto do usuário
-            const usuario = {
+            const aluno = {
                 matricula: document.getElementById('matricula').value,
                 empresaRelacionamento: document.getElementById(
                     'empresaRelacionamento'
                 ).value,
                 faculdade: document.getElementById('faculdade').value,
                 nomeCompleto: document.getElementById('nomeCompleto').value,
-                cpf: cpf,
+                cpf: document.getElementById('cpf').value.replace(/\D/g, ''),
                 dataNascimento: document.getElementById('dataNascimento').value,
-                email: email,
-                telefone: telefone,
+                email: document.getElementById('email').value,
+                telefone: document
+                    .getElementById('telefone')
+                    .value.replace(/\D/g, ''),
                 cep: document.getElementById('cep').value,
                 rua: document.getElementById('rua').value,
                 numero: document.getElementById('numero').value,
@@ -274,34 +363,14 @@ document
             };
 
             // Adiciona o usuário ao localStorage
-            usuarios.push(usuario);
-            localStorage.setItem('usuarios', JSON.stringify(usuarios));
+            const alunos = JSON.parse(localStorage.getItem('alunos')) || [];
+            alunos.push(aluno);
+            localStorage.setItem('alunos', JSON.stringify(alunos));
 
             // Exibe a mensagem de sucesso
-            const mensagemSucesso = document.getElementById('mensagemSucesso');
-            mensagemSucesso.style.display = 'block';
-
-            // Limpa o formulário após 2 segundos e redireciona para o painel do aluno
+            document.getElementById('mensagemSucesso').style.display = 'block';
             setTimeout(() => {
-                mensagemSucesso.style.display = 'none';
-                document.getElementById('cadastroAlunoForm').reset();
-                document.getElementById('matricula').value = gerarMatricula();
-
-                // Redireciona para o painel de controle do aluno
-                window.location.href = 'painel-aluno.html'; // Altere para o caminho correto do painel do aluno
+                window.location.href = 'painel-aluno.html';
             }, 2000);
         });
-
-    // Função para mostrar mensagens de erro
-    function mostrarErro(id, mensagem) {
-        const erroElemento = document.getElementById(id);
-        erroElemento.textContent = mensagem;
-        erroElemento.style.display = 'block';
-    }
-
-    // Função para esconder mensagens de erro
-    function esconderErro(id) {
-        const erroElemento = document.getElementById(id);
-        erroElemento.style.display = 'none';
-    }
 });

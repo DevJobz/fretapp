@@ -90,11 +90,10 @@ label {
     color: rgba(255, 255, 255, 0.5);
 }
 
-/* Estilo para a lista suspensa (select) */
 select.input-field {
-    appearance: none; /* Remove o estilo padrão do navegador */
-    -webkit-appearance: none; /* Remove o estilo padrão no Safari */
-    -moz-appearance: none; /* Remove o estilo padrão no Firefox */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     background-color: transparent;
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 8px;
@@ -103,7 +102,7 @@ select.input-field {
     color: #fff;
     cursor: pointer;
     transition: border-color 0.3s ease;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e"); /* Ícone de seta personalizado */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right 0.75rem center;
     background-size: 1.5rem;
@@ -114,22 +113,19 @@ select.input-field:focus {
     outline: none;
 }
 
-/* Estilo para as opções (options) */
 select.input-field option {
-    background-color: #6a11cb; /* Cor de fundo das opções */
-    color: #fff; /* Cor do texto das opções */
-    padding: 0.5rem; /* Espaçamento interno */
-    font-size: 0.9rem; /* Tamanho da fonte */
-    border-radius: 4px; /* Bordas arredondadas */
-    margin: 0.25rem 0; /* Espaçamento entre as opções */
+    background-color: #6a11cb;
+    color: #fff;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    margin: 0.25rem 0;
 }
 
-/* Efeito hover para as opções */
 select.input-field option:hover {
-    background-color: #2575fc; /* Cor de fundo ao passar o mouse */
+    background-color: #2575fc;
 }
 
-/* Efeito hover para a lista suspensa */
 select.input-field:hover {
     border-color: rgba(255, 255, 255, 0.6);
 }
@@ -196,6 +192,8 @@ select.input-field:hover {
     }
 
     .btn-voltar {
+        top: 0.5rem;
+        left: 0.5rem;
         font-size: 1.25rem;
     }
 }

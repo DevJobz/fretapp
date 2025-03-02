@@ -30,7 +30,6 @@ body {
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 2rem;
-    display: flex;
     justify-content: center;
 }
 
@@ -107,7 +106,7 @@ body {
     animation: fadeIn 0.5s ease;
 }
 
-.nav-links a[data-aba="sair"] {
+.nav-links a[data-aba='sair'] {
     background-color: #ff4d4d;
     color: #fff;
 }
@@ -169,8 +168,115 @@ body {
     background-color: #1a5bbf;
 }
 
-.nav-links a[data-aba="sair"]:hover {
+.nav-links a[data-aba='sair']:hover {
     background-color: #ff1a1a;
+}
+
+.lista-usuarios table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+}
+
+.lista-usuarios th,
+.lista-usuarios td {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.lista-usuarios th {
+    background-color: #6a11cb;
+    color: #fff;
+}
+
+.lista-usuarios tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.lista-usuarios tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Tabelas de Instituições e Empresas */
+.tabela-instituicoes,
+.tabela-empresas {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+}
+
+.tabela-instituicoes th,
+.tabela-instituicoes td,
+.tabela-empresas th,
+.tabela-empresas td {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.tabela-instituicoes th,
+.tabela-empresas th {
+    background-color: #6a11cb;
+    color: #fff;
+}
+
+.tabela-instituicoes tr:nth-child(even),
+.tabela-empresas tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.tabela-instituicoes tr:hover,
+.tabela-empresas tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Botões de Ação */
+.btn-editar,
+.btn-excluir {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-editar {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.btn-editar:hover {
+    background-color: #45a049;
+}
+
+.btn-excluir {
+    background-color: #ff6b6b;
+    color: #fff;
+}
+
+.btn-excluir:hover {
+    background-color: #ff4d4d;
+}
+
+/* Mensagens de sucesso */
+.mensagem-sucesso {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+/* Mensagens de erro */
+.erro-mensagem {
+    color: #ff6b6b;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: none;
 }
 
 @keyframes fadeIn {

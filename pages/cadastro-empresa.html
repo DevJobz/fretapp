@@ -146,6 +146,7 @@
                 />
                 <span class="erro-mensagem" id="erroCidade"></span>
 
+                <!-- Campo de Senha com autocomplete e acessibilidade -->
                 <label for="senha">Senha:</label>
                 <input
                     type="password"
@@ -153,9 +154,12 @@
                     name="senha"
                     class="input-field"
                     required
+                    autocomplete="new-password"
+                    aria-describedby="erroSenha"
                 />
                 <span class="erro-mensagem" id="erroSenha"></span>
 
+                <!-- Campo de Confirmação de Senha com autocomplete e acessibilidade -->
                 <label for="confirmarSenha">Confirmar Senha:</label>
                 <input
                     type="password"
@@ -163,6 +167,8 @@
                     name="confirmarSenha"
                     class="input-field"
                     required
+                    autocomplete="new-password"
+                    aria-describedby="erroConfirmarSenha"
                 />
                 <span class="erro-mensagem" id="erroConfirmarSenha"></span>
 
