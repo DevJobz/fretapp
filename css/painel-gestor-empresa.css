@@ -377,6 +377,7 @@ body {
     }
     .cabecalho h1 {
         font-size: 1.5rem;
+        margin-left: 20px;
     }
     .conteudo-aba {
         padding: 1rem;
@@ -410,6 +411,9 @@ body {
     .modal-conteudo {
         width: 90%;
         margin: auto;
+    }
+    a {
+        font-size: 13px;
     }
 }
 
