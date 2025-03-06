@@ -5,32 +5,56 @@
     box-sizing: border-box;
 }
 
-/* Estilos globais */
+/* Variáveis de estilo */
+:root {
+    --primary-color: #2575fc;
+    --secondary-color: #6a11cb;
+    --background-color: #f4f4f9;
+    --white: #fff;
+    --text-color: #333;
+    --nav-width: 250px;
+    --transition-speed: 0.3s;
+    --border-radius: 8px;
+    --accordion-header-bg: #e9e9e9;
+}
+
+/* Layout global */
 body {
+    display: block; /* Mantido block conforme relatado */
     font-family: 'Poppins', sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-    display: flex;
+    background-color: var(--background-color);
+    color: var(--text-color);
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
 /* Nav Lateral */
 .nav-lateral {
-    width: 250px;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    color: #fff;
-    padding: 1.5rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--nav-width);
+    height: 100vh;
+    background: linear-gradient(
+        135deg,
+        var(--secondary-color),
+        var(--primary-color)
+    );
+    color: var(--white);
+    padding: 1.5rem 1rem;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s ease;
+    z-index: 1000;
+    overflow-y: auto;
+    transition: transform var(--transition-speed) ease;
 }
 
 .nav-lateral .logo {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     margin-bottom: 2rem;
-    justify-content: center;
 }
 
 .nav-lateral .logo i {
@@ -54,15 +78,16 @@ body {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    color: #fff;
+    color: var(--white);
     text-decoration: none;
     padding: 0.75rem;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
+    border-radius: var(--border-radius);
+    transition: background var(--transition-speed) ease;
 }
 
-.nav-links a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+.nav-links a:hover,
+.nav-links a.active {
+    background-color: rgba(255, 255, 255, 0.15);
 }
 
 .nav-links a i {
@@ -71,15 +96,16 @@ body {
 
 /* Conteúdo Principal */
 .conteudo-principal {
-    flex: 1;
-    background-color: #fff;
+    margin-left: var(--nav-width);
     padding: 1.5rem;
+    background-color: #fff;
+    transition: margin-left 0.3s ease;
 }
 
 .cabecalho {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    justify-content: space-between;
     margin-bottom: 2rem;
 }
 
@@ -87,198 +113,242 @@ body {
     display: none;
     background: none;
     border: none;
-    color: #2575fc;
-    font-size: 1.5rem;
+    color: var(--primary-color);
+    font-size: 1.75rem;
     cursor: pointer;
 }
 
 .cabecalho h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 600;
     color: #444;
 }
 
+/* Conteúdo das Abas */
 .conteudo-aba {
-    background: #f9f9f9;
+    background-color: #f9f9f9;
     padding: 1.5rem;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.5s ease;
+    animation: fadeIn 0.3s ease;
 }
 
-.nav-links a[data-aba='sair'] {
+.conteudo-aba h2 {
+    margin-bottom: 10px;
+}
+
+.conteudo-aba p {
+    margin-bottom: 15px;
+}
+
+/* Accordion (Seções expansíveis) */
+.accordion-header {
+    background-color: var(--accordion-header-bg);
+    border: none;
+    border-radius: var(--border-radius);
+    width: 100%;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: background var(--transition-speed) ease;
+}
+.accordion-header:hover {
+    background-color: #dedede;
+}
+.accordion-header[aria-expanded='true'] {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.accordion-header i {
+    transition: transform var(--transition-speed) ease;
+}
+.accordion-header[aria-expanded='true'] i {
+    transform: rotate(180deg);
+}
+
+/* Container do accordion com altura máx e scroll interno */
+.accordion-content {
+    background-color: var(--white);
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    max-height: calc(100vh - 300px);
+    overflow-y: auto;
+}
+
+/* Tabelas Responsivas */
+.table-responsive {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto; /* Scroll horizontal interno */
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    margin-bottom: 1.5rem;
+}
+
+/* Sem table-layout: fixed; para não cortar a última coluna */
+.table-responsive table {
+    width: 100%;
+    min-width: 800px; /* Força rolagem horizontal em telas < 800px */
+    border-collapse: collapse;
+    white-space: nowrap;
+}
+
+.table-responsive th,
+.table-responsive td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.table-responsive th {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    font-weight: 500;
+}
+
+.table-responsive tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table-responsive tr:hover {
+    background-color: #e1e1e1;
+}
+
+/* Formulários Responsivos (com label acima do input) */
+.responsive-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* Forçar label acima do input */
+.responsive-form label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+/* Inputs mais "bonitos" */
+.responsive-form input,
+.responsive-form textarea,
+.responsive-form select {
+    display: block;
+    width: 100%;
+    max-width: 600px; /* Ajuste conforme desejar */
+    padding: 0.6rem;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    background-color: var(--white);
+    outline: none;
+}
+
+/* Botões */
+.btn {
+    display: inline-block;
+    padding: 0.4rem 0.8rem; /* Botões menores */
+    font-size: 0.9rem;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color var(--transition-speed) ease;
+    margin: 0.25rem 0;
+    margin-left: 8px;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+.btn-primary:hover {
+    background-color: #1a5dd8;
+}
+
+.btn-danger {
     background-color: #ff4d4d;
-    color: #fff;
+    color: var(--white);
+}
+.btn-danger:hover {
+    background-color: #ff1a1a;
 }
 
-/* Modal de Exclusão de Conta */
+.btn-editar {
+    background-color: #4caf50;
+    color: var(--white);
+}
+.btn-editar:hover {
+    background-color: #43a047;
+}
+
+.btn-excluir {
+    background-color: #ff6b6b;
+    color: var(--white);
+}
+.btn-excluir:hover {
+    background-color: #ff5252;
+}
+
+/* Modal */
 .modal {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 1100;
 }
-
+.modal.active {
+    display: flex;
+}
 .modal-conteudo {
-    background-color: #fff;
+    background-color: var(--white);
     padding: 2rem;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
 .modal-botoes {
     display: flex;
     justify-content: center;
     gap: 1rem;
     margin-top: 1.5rem;
 }
-
 .modal-botoes button {
     padding: 0.75rem 1.5rem;
     border: none;
-    border-radius: 8px;
-    cursor: pointer;
+    border-radius: var(--border-radius);
     font-size: 1rem;
-    font-weight: 500;
-    transition: background-color 0.3s ease;
-}
-
-.modal-botoes button#btnSimExcluir {
-    background-color: #ff4d4d;
-    color: #fff;
-}
-
-.modal-botoes button#btnSimExcluir:hover {
-    background-color: #ff1a1a;
-}
-
-.modal-botoes button#btnNaoExcluir {
-    background-color: #2575fc;
-    color: #fff;
-}
-
-.modal-botoes button#btnNaoExcluir:hover {
-    background-color: #1a5bbf;
-}
-
-.nav-links a[data-aba='sair']:hover {
-    background-color: #ff1a1a;
-}
-
-.lista-usuarios table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 2rem;
-}
-
-.lista-usuarios th,
-.lista-usuarios td {
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-.lista-usuarios th {
-    background-color: #6a11cb;
-    color: #fff;
-}
-
-.lista-usuarios tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.lista-usuarios tr:hover {
-    background-color: #f1f1f1;
-}
-
-/* Tabelas de Instituições e Empresas */
-.tabela-instituicoes,
-.tabela-empresas {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 2rem;
-}
-
-.tabela-instituicoes th,
-.tabela-instituicoes td,
-.tabela-empresas th,
-.tabela-empresas td {
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-.tabela-instituicoes th,
-.tabela-empresas th {
-    background-color: #6a11cb;
-    color: #fff;
-}
-
-.tabela-instituicoes tr:nth-child(even),
-.tabela-empresas tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.tabela-instituicoes tr:hover,
-.tabela-empresas tr:hover {
-    background-color: #f1f1f1;
-}
-
-/* Botões de Ação */
-.btn-editar,
-.btn-excluir {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
     cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease;
+    transition: background-color var(--transition-speed) ease;
+}
+#btnSimExcluir {
+    background-color: #ff5252;
+    color: var(--white);
+}
+#btnSimExcluir:hover {
+    background-color: #ff1744;
+}
+#btnNaoExcluir {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+#btnNaoExcluir:hover {
+    background-color: #1a5dd8;
 }
 
-.btn-editar {
-    background-color: #4caf50;
-    color: #fff;
-}
-
-.btn-editar:hover {
-    background-color: #45a049;
-}
-
-.btn-excluir {
-    background-color: #ff6b6b;
-    color: #fff;
-}
-
-.btn-excluir:hover {
-    background-color: #ff4d4d;
-}
-
-/* Mensagens de sucesso */
-.mensagem-sucesso {
-    background-color: #4caf50;
-    color: #fff;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-top: 1rem;
-    display: none;
-    animation: fadeIn 0.5s ease;
-}
-
-/* Mensagens de erro */
-.erro-mensagem {
-    color: #ff6b6b;
-    font-size: 0.8rem;
-    margin-top: 0.25rem;
-    display: none;
-}
-
+/* Animação de Fade In */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -290,25 +360,72 @@ body {
     }
 }
 
-/* Responsividade */
+/* Responsividade – Mobile First */
 @media (max-width: 768px) {
     .nav-lateral {
-        position: fixed;
-        top: 0;
-        left: -250px;
-        height: 100vh;
-        z-index: 1000;
+        transform: translateX(-100%);
     }
-
-    .nav-lateral.ativo {
-        transform: translateX(250px);
+    .nav-lateral.active {
+        transform: translateX(0);
     }
-
     .cabecalho .menu-hamburguer {
         display: block;
     }
-
     .conteudo-principal {
         margin-left: 0;
+        padding: 1rem;
+    }
+    .cabecalho h1 {
+        font-size: 1.5rem;
+    }
+    .conteudo-aba {
+        padding: 1rem;
+    }
+    .accordion-header {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.95rem;
+    }
+    .accordion-content {
+        max-height: calc(100vh - 200px);
+        overflow-y: auto;
+        padding: 0.75rem;
+    }
+    .table-responsive {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+    .table-responsive table {
+        width: 100%;
+        min-width: 800px;
+    }
+    .table-responsive th,
+    .table-responsive td {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+    }
+    .btn {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.85rem;
+    }
+    .modal-conteudo {
+        width: 90%;
+        margin: auto;
+    }
+}
+
+/* ------------- Desktop (>= 992px) duas colunas no formulário ------------- */
+@media (min-width: 992px) {
+    /* Muda a .responsive-form para 2 colunas no desktop */
+    .responsive-form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem 2rem; /* Espaço entre colunas e linhas */
+    }
+
+    /* Ajusta a largura máxima dos inputs no desktop para não ficarem enormes */
+    .responsive-form input,
+    .responsive-form textarea,
+    .responsive-form select {
+        max-width: 300px;
     }
 }
