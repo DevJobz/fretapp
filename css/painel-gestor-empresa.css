@@ -171,7 +171,7 @@ body {
     transform: rotate(180deg);
 }
 
-/* Container do accordion com altura máx e scroll interno */
+/* Container do accordion */
 .accordion-content {
     background-color: var(--white);
     border: 1px solid #ddd;
@@ -195,19 +195,20 @@ body {
     margin-bottom: 1.5rem;
 }
 
-/* Sem table-layout: fixed; para não cortar a última coluna */
 .table-responsive table {
-    width: 100%;
-    min-width: 800px; /* Força rolagem horizontal em telas < 800px */
+    /* Remove min-width e deixa width auto para “encolher” ao conteúdo */
+    width: auto;
+    table-layout: auto; /* Permite que as colunas se ajustem ao conteúdo */
     border-collapse: collapse;
-    white-space: nowrap;
 }
 
 .table-responsive th,
 .table-responsive td {
-    padding: 10px;
+    /* Reduz o padding para ficar mais “conciso” */
+    padding: 6px;
     border: 1px solid #ddd;
     text-align: left;
+    white-space: nowrap; /* Se quiser quebrar texto, troque para normal */
 }
 
 .table-responsive th {
@@ -232,20 +233,18 @@ body {
     margin-bottom: 2rem;
 }
 
-/* Forçar label acima do input */
 .responsive-form label {
     display: block;
     margin-bottom: 0.25rem;
     font-weight: 500;
 }
 
-/* Inputs mais "bonitos" */
 .responsive-form input,
 .responsive-form textarea,
 .responsive-form select {
     display: block;
     width: 100%;
-    max-width: 600px; /* Ajuste conforme desejar */
+    max-width: 600px;
     padding: 0.6rem;
     font-size: 0.9rem;
     border: 1px solid #ccc;
@@ -297,6 +296,17 @@ body {
 }
 .btn-excluir:hover {
     background-color: #ff5252;
+}
+
+/* Ajuste para os botões de abas no container do motorista */
+#detalhesMotoristaContainer nav {
+    display: flex;
+    flex-wrap: wrap; /* Faz os botões quebrarem linha se excederem a largura */
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+#detalhesMotoristaContainer nav .btn {
+    white-space: nowrap; /* Evita que o texto do botão quebre */
 }
 
 /* Modal */
@@ -396,12 +406,12 @@ body {
         overflow-x: auto;
     }
     .table-responsive table {
-        width: 100%;
-        min-width: 800px;
+        width: auto;
+        table-layout: auto;
     }
     .table-responsive th,
     .table-responsive td {
-        padding: 0.5rem;
+        padding: 4px;
         font-size: 0.85rem;
     }
     .btn {
@@ -419,14 +429,11 @@ body {
 
 /* ------------- Desktop (>= 992px) duas colunas no formulário ------------- */
 @media (min-width: 992px) {
-    /* Muda a .responsive-form para 2 colunas no desktop */
     .responsive-form {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 1rem 2rem; /* Espaço entre colunas e linhas */
+        gap: 1rem 2rem;
     }
-
-    /* Ajusta a largura máxima dos inputs no desktop para não ficarem enormes */
     .responsive-form input,
     .responsive-form textarea,
     .responsive-form select {

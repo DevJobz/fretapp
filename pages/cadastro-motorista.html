@@ -1,3 +1,4 @@
+<!-- cadastro-motorista.html -->
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
@@ -26,33 +27,55 @@
 
             <h1>Cadastro de Motorista</h1>
             <form id="cadastroMotoristaForm">
-                <label for="nomeCompleto">Nome Completo:</label>
-                <input
-                    type="text"
-                    id="nomeCompleto"
-                    name="nomeCompleto"
-                    class="input-field"
-                    required
-                />
+                <!-- Se o acesso vier via link gerado pelo gestor, os dados pré‑preenchidos serão carregados -->
+                <div id="prefillSection">
+                    <label for="nomeCompleto">Nome Completo:</label>
+                    <input
+                        type="text"
+                        id="nomeCompleto"
+                        name="nomeCompleto"
+                        class="input-field"
+                        required
+                    />
 
-                <label for="cnh">CNH:</label>
-                <input
-                    type="text"
-                    id="cnh"
-                    name="cnh"
-                    class="input-field"
-                    required
-                />
+                    <label for="cnh">CNH:</label>
+                    <input
+                        type="text"
+                        id="cnh"
+                        name="cnh"
+                        class="input-field"
+                        required
+                    />
 
-                <label for="validadeCnh">Validade:</label>
-                <input
-                    type="date"
-                    id="validadeCnh"
-                    name="validadeCnh"
-                    class="input-field"
-                    required
-                />
+                    <label for="categoria">Categoria CNH:</label>
+                    <input
+                        type="text"
+                        id="categoria"
+                        name="categoria"
+                        class="input-field"
+                        required
+                    />
 
+                    <label for="expedicao">Expedição CNH:</label>
+                    <input
+                        type="date"
+                        id="expedicao"
+                        name="expedicao"
+                        class="input-field"
+                        required
+                    />
+
+                    <label for="validade">Validade CNH:</label>
+                    <input
+                        type="date"
+                        id="validade"
+                        name="validade"
+                        class="input-field"
+                        required
+                    />
+                </div>
+
+                <!-- Campos que o motorista deverá preencher -->
                 <label for="cpf">CPF:</label>
                 <input
                     type="text"

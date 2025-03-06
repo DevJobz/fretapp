@@ -53,19 +53,30 @@ h1 {
     color: #fff;
 }
 
+/* Form principal */
 form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-label {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.8);
-    text-align: left;
+/* Ajuste para o container de campos pré-preenchidos */
+#prefillSection {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
 }
 
+#prefillSection label {
+    display: block;
+    text-align: left;
+    margin-bottom: 0.25rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+/* Inputs em geral */
 .input-field {
     padding: 0.75rem;
     border: 2px solid rgba(255, 255, 255, 0.3);
@@ -74,6 +85,7 @@ label {
     background: transparent;
     color: #fff;
     transition: border-color 0.3s ease;
+    width: 100%;
 }
 
 .input-field:focus {
@@ -85,6 +97,24 @@ label {
     color: rgba(255, 255, 255, 0.5);
 }
 
+/* Força o date input a manter a mesma aparência */
+input[type='date'].input-field {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 0.75rem;
+}
+
+/* Labels em geral (fora do prefillSection) */
+label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: left;
+}
+
+/* Seção de termos */
 .termos {
     display: flex;
     align-items: center;
@@ -97,6 +127,7 @@ label {
     color: rgba(255, 255, 255, 0.8);
 }
 
+/* Botões */
 .btn {
     text-decoration: none;
     padding: 0.75rem 1.5rem;
