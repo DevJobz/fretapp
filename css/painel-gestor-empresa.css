@@ -20,7 +20,7 @@
 
 /* Layout global */
 body {
-    display: block; /* Mantido block conforme relatado */
+    display: block;
     font-family: 'Poppins', sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
@@ -141,6 +141,33 @@ body {
     margin-bottom: 15px;
 }
 
+/* Bloco de Filtros na aba de Gestão de Usuários */
+#filtrosUsuarios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--white);
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+}
+#filtrosUsuarios .filtro-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 120px;
+}
+#filtrosUsuarios .filtro-group label {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+#filtrosUsuarios .filtro-group input,
+#filtrosUsuarios .filtro-group select {
+    padding: 0.4rem;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+}
+
 /* Accordion (Seções expansíveis) */
 .accordion-header {
     background-color: var(--accordion-header-bg);
@@ -188,7 +215,7 @@ body {
     display: block;
     width: 100%;
     max-width: 100%;
-    overflow-x: auto; /* Scroll horizontal interno */
+    overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     box-sizing: border-box;
     border: 1px solid #ddd;
@@ -196,19 +223,17 @@ body {
 }
 
 .table-responsive table {
-    /* Remove min-width e deixa width auto para “encolher” ao conteúdo */
     width: auto;
-    table-layout: auto; /* Permite que as colunas se ajustem ao conteúdo */
+    table-layout: auto;
     border-collapse: collapse;
 }
 
 .table-responsive th,
 .table-responsive td {
-    /* Reduz o padding para ficar mais “conciso” */
     padding: 6px;
     border: 1px solid #ddd;
-    text-align: left;
-    white-space: nowrap; /* Se quiser quebrar texto, troque para normal */
+    text-align: center;
+    white-space: nowrap;
 }
 
 .table-responsive th {
@@ -225,7 +250,7 @@ body {
     background-color: #e1e1e1;
 }
 
-/* Formulários Responsivos (com label acima do input) */
+/* Formulários Responsivos */
 .responsive-form {
     display: flex;
     flex-direction: column;
@@ -256,7 +281,7 @@ body {
 /* Botões */
 .btn {
     display: inline-block;
-    padding: 0.4rem 0.8rem; /* Botões menores */
+    padding: 0.4rem 0.8rem;
     font-size: 0.9rem;
     border: none;
     border-radius: var(--border-radius);
@@ -301,12 +326,12 @@ body {
 /* Ajuste para os botões de abas no container do motorista */
 #detalhesMotoristaContainer nav {
     display: flex;
-    flex-wrap: wrap; /* Faz os botões quebrarem linha se excederem a largura */
+    flex-wrap: wrap;
     gap: 0.5rem;
     margin-bottom: 1rem;
 }
 #detalhesMotoristaContainer nav .btn {
-    white-space: nowrap; /* Evita que o texto do botão quebre */
+    white-space: nowrap;
 }
 
 /* Modal */

@@ -144,6 +144,60 @@ class PainelGestorEmpresa {
                       <button id="gerarLink" class="btn btn-primary">Gerar Link</button>
                       <p id="linkGerado" style="margin-top: 0.5rem;"></p>
                     </div>
+                    <!-- Bloco de Filtros -->
+<div id="filtrosUsuarios">
+  <div class="filtro-group">
+    <label for="filtroNome">Nome:</label>
+    <input type="text" id="filtroNome" placeholder="Pesquisar nome..." />
+  </div>
+
+  <div class="filtro-group">
+    <label for="filtroTipo">Tipo:</label>
+    <select id="filtroTipo">
+      <option value="todos">Todos</option>
+      <option value="aluno">Alunos</option>
+      <option value="funcionario">Funcionários</option>
+    </select>
+  </div>
+
+  <div class="filtro-group">
+    <label for="filtroFinanceiro">Financeiro:</label>
+    <select id="filtroFinanceiro">
+      <option value="todos">Todos</option>
+      <option value="atraso">Em Atraso</option>
+      <option value="pendente">Pendente</option>
+    </select>
+  </div>
+
+  <div class="filtro-group">
+    <label for="filtroMotoristaUsuarios">Motorista:</label>
+    <select id="filtroMotoristaUsuarios">
+      <option value="">Todos</option>
+    </select>
+  </div>
+
+  <div class="filtro-group">
+    <label for="filtroFrotaUsuarios">Frota:</label>
+    <select id="filtroFrotaUsuarios">
+      <option value="">Todas</option>
+    </select>
+  </div>
+
+  <div class="filtro-group">
+    <label for="filtroFaculdade">Faculdade:</label>
+    <select id="filtroFaculdade">
+      <option value="">Todas</option>
+    </select>
+  </div>
+
+  <div class="filtro-group">
+    <label for="filtroEmpresa">Empresa:</label>
+    <select id="filtroEmpresa">
+      <option value="">Todas</option>
+    </select>
+  </div>
+</div>
+
                     <button class="accordion-header" aria-expanded="false">
                       <span>Lista de Alunos</span>
                       <i class="fas fa-chevron-down"></i>
@@ -489,7 +543,7 @@ class PainelGestorEmpresa {
             document.querySelector('.nav-lateral').classList.remove('active');
         }
 
-        // Chama as funções de inicialização das abas
+        // Se a aba for "usuarios", inicializa os filtros e renderiza as tabelas filtradas
         if (aba === 'usuarios') {
             const gerarLink = document.getElementById('gerarLink');
             if (gerarLink) {
@@ -497,10 +551,12 @@ class PainelGestorEmpresa {
                     this.gerarLinkCadastro()
                 );
             }
+            this.inicializarFiltrosUsuarios();
             this.carregarAlunos();
             this.carregarFuncionarios();
         }
         if (aba === 'configuracoes') {
+            // (Chamadas inalteradas)
             this.carregarDadosEmpresa();
             this.carregarInstituicoes();
             this.carregarEmpresas();
@@ -562,6 +618,291 @@ class PainelGestorEmpresa {
                 content.hidden = expanded;
             });
         });
+    }
+
+    // Método para inicializar os filtros na aba de usuários
+    inicializarFiltrosUsuarios() {
+        const filtroNome = document.getElementById('filtroNome');
+        const filtroTipo = document.getElementById('filtroTipo');
+        const filtroFinanceiro = document.getElementById('filtroFinanceiro');
+        const filtroMotoristaUsuarios = document.getElementById(
+            'filtroMotoristaUsuarios'
+        );
+        const filtroFrotaUsuarios = document.getElementById(
+            'filtroFrotaUsuarios'
+        );
+        const filtroFaculdade = document.getElementById('filtroFaculdade');
+        const filtroEmpresa = document.getElementById('filtroEmpresa');
+
+        // Adiciona listeners para disparar os filtros
+        [
+            filtroNome,
+            filtroTipo,
+            filtroFinanceiro,
+            filtroMotoristaUsuarios,
+            filtroFrotaUsuarios,
+            filtroFaculdade,
+            filtroEmpresa,
+        ].forEach((el) => {
+            if (el) {
+                el.addEventListener('input', () => {
+                    this.carregarAlunos();
+                    this.carregarFuncionarios();
+                });
+                el.addEventListener('change', () => {
+                    this.carregarAlunos();
+                    this.carregarFuncionarios();
+                });
+            }
+        });
+
+        // Preenche dropdown de Motorista (somente motoristas com alguma associação)
+        const motoristas = JSON.parse(localStorage.getItem('motoristas')) || [];
+        const optionsMotorista = [
+            ...new Set(
+                motoristas
+                    .filter((m) => m.associados && m.associados.length > 0)
+                    .map((m) => ({ id: m.id, nome: m.nomeCompleto }))
+            ),
+        ];
+        optionsMotorista.forEach((m) => {
+            const option = document.createElement('option');
+            option.value = m.id;
+            option.textContent = m.nome;
+            filtroMotoristaUsuarios.appendChild(option);
+        });
+
+        // Preenche dropdown de Frota (somente para veículos de Fretamento com associação)
+        const empresaAtiva =
+            JSON.parse(localStorage.getItem('empresaAtiva')) || {};
+        const veiculos = empresaAtiva.veiculos || [];
+        const alunos = JSON.parse(localStorage.getItem('alunos')) || [];
+        const funcionarios =
+            JSON.parse(localStorage.getItem('funcionarios')) || [];
+        const fleetSet = new Set();
+        alunos.forEach((a) => {
+            if (a.frota) fleetSet.add(a.frota);
+        });
+        funcionarios.forEach((f) => {
+            if (f.frota) fleetSet.add(f.frota);
+        });
+        const optionsFrota = veiculos.filter(
+            (v) => v.uso === 'Fretamento' && fleetSet.has(v.frotaNumero)
+        );
+        optionsFrota.forEach((v) => {
+            const option = document.createElement('option');
+            option.value = v.frotaNumero;
+            option.textContent = `${v.frotaNumero} - ${v.modelo}`;
+            filtroFrotaUsuarios.appendChild(option);
+        });
+
+        // Preenche dropdown de Faculdade (dos alunos)
+        const facSet = new Set(alunos.map((a) => a.faculdade).filter(Boolean));
+        facSet.forEach((fac) => {
+            const option = document.createElement('option');
+            option.value = fac;
+            option.textContent = fac;
+            filtroFaculdade.appendChild(option);
+        });
+
+        // Preenche dropdown de Empresa (dos funcionários)
+        const empSet = new Set(
+            funcionarios.map((f) => f.empresa).filter(Boolean)
+        );
+        empSet.forEach((emp) => {
+            const option = document.createElement('option');
+            option.value = emp;
+            option.textContent = emp;
+            filtroEmpresa.appendChild(option);
+        });
+    }
+
+    // FUNÇÕES PARA A ABA DE USUÁRIOS – Alunos
+    carregarAlunos() {
+        let alunos = JSON.parse(localStorage.getItem('alunos')) || [];
+        const filtroNome = document.getElementById('filtroNome')
+            ? document.getElementById('filtroNome').value.trim().toLowerCase()
+            : '';
+        const filtroTipo = document.getElementById('filtroTipo')
+            ? document.getElementById('filtroTipo').value
+            : 'todos';
+        const filtroFinanceiro = document.getElementById('filtroFinanceiro')
+            ? document.getElementById('filtroFinanceiro').value
+            : 'todos';
+        const filtroMotorista = document.getElementById(
+            'filtroMotoristaUsuarios'
+        )
+            ? document.getElementById('filtroMotoristaUsuarios').value
+            : '';
+        const filtroFaculdade = document.getElementById('filtroFaculdade')
+            ? document.getElementById('filtroFaculdade').value
+            : '';
+        const filtroFrota = document.getElementById('filtroFrotaUsuarios')
+            ? document.getElementById('filtroFrotaUsuarios').value
+            : '';
+
+        // Se o filtro de tipo for "funcionario", não exibe alunos
+        if (filtroTipo === 'funcionario') {
+            alunos = [];
+        }
+
+        alunos = alunos.filter((aluno) => {
+            let include = true;
+            if (
+                filtroNome &&
+                !aluno.nomeCompleto.toLowerCase().includes(filtroNome)
+            ) {
+                include = false;
+            }
+            if (filtroFinanceiro === 'atraso') {
+                const summary = this.getFinancialSummary(aluno).toLowerCase();
+                if (!summary.includes('em atraso')) include = false;
+            }
+            if (filtroFinanceiro === 'pendente') {
+                const summary = this.getFinancialSummary(aluno).toLowerCase();
+                if (!summary.includes('pendente')) include = false;
+            }
+            if (filtroMotorista && aluno.motoristaId !== filtroMotorista) {
+                include = false;
+            }
+            if (filtroFrota && aluno.frota !== filtroFrota) {
+                include = false;
+            }
+            if (filtroFaculdade && aluno.faculdade !== filtroFaculdade) {
+                include = false;
+            }
+            return include;
+        });
+
+        const tabelaAlunos = document.querySelector('#tabelaAlunos tbody');
+        if (!tabelaAlunos) return;
+        tabelaAlunos.innerHTML = '';
+        alunos.forEach((aluno) => {
+            const row = tabelaAlunos.insertRow();
+            row.insertCell(0).textContent = aluno.nomeCompleto || 'N/A';
+            row.insertCell(1).textContent = aluno.faculdade || 'N/A';
+            row.insertCell(2).textContent = aluno.email || 'N/A';
+            row.insertCell(3).textContent = aluno.telefone || 'N/A';
+            const cellMotorista = row.insertCell(4);
+            cellMotorista.textContent = aluno.motorista || '-';
+            const cellFinanceiro = row.insertCell(5);
+            cellFinanceiro.textContent = this.getFinancialSummary(aluno);
+            const cellAcoes = row.insertCell(6);
+            // Apenas botão Excluir
+            const btnExcluir = document.createElement('button');
+            btnExcluir.textContent = 'Excluir';
+            btnExcluir.className = 'btn btn-excluir';
+            btnExcluir.onclick = () => this.excluirAluno(aluno.id);
+            cellAcoes.appendChild(btnExcluir);
+        });
+    }
+
+    excluirAluno(id) {
+        if (confirm('Tem certeza que deseja excluir este aluno?')) {
+            let alunos = JSON.parse(localStorage.getItem('alunos')) || [];
+            alunos = alunos.filter((aluno) => aluno.id !== id);
+            localStorage.setItem('alunos', JSON.stringify(alunos));
+            this.carregarAlunos();
+        }
+    }
+
+    // FUNÇÕES PARA A ABA DE USUÁRIOS – Funcionários
+    carregarFuncionarios() {
+        let funcionarios =
+            JSON.parse(localStorage.getItem('funcionarios')) || [];
+        const filtroNome = document.getElementById('filtroNome')
+            ? document.getElementById('filtroNome').value.trim().toLowerCase()
+            : '';
+        const filtroTipo = document.getElementById('filtroTipo')
+            ? document.getElementById('filtroTipo').value
+            : 'todos';
+        const filtroFinanceiro = document.getElementById('filtroFinanceiro')
+            ? document.getElementById('filtroFinanceiro').value
+            : 'todos';
+        const filtroMotorista = document.getElementById(
+            'filtroMotoristaUsuarios'
+        )
+            ? document.getElementById('filtroMotoristaUsuarios').value
+            : '';
+        const filtroEmpresa = document.getElementById('filtroEmpresa')
+            ? document.getElementById('filtroEmpresa').value
+            : '';
+        const filtroFrota = document.getElementById('filtroFrotaUsuarios')
+            ? document.getElementById('filtroFrotaUsuarios').value
+            : '';
+
+        // Se o filtro de tipo for "aluno", não exibe funcionários
+        if (filtroTipo === 'aluno') {
+            funcionarios = [];
+        }
+
+        funcionarios = funcionarios.filter((funcionario) => {
+            let include = true;
+            if (
+                filtroNome &&
+                !funcionario.nomeCompleto.toLowerCase().includes(filtroNome)
+            ) {
+                include = false;
+            }
+            if (filtroFinanceiro === 'atraso') {
+                const summary =
+                    this.getFinancialSummary(funcionario).toLowerCase();
+                if (!summary.includes('em atraso')) include = false;
+            }
+            if (filtroFinanceiro === 'pendente') {
+                const summary =
+                    this.getFinancialSummary(funcionario).toLowerCase();
+                if (!summary.includes('pendente')) include = false;
+            }
+            if (
+                filtroMotorista &&
+                funcionario.motoristaId !== filtroMotorista
+            ) {
+                include = false;
+            }
+            if (filtroEmpresa && funcionario.empresa !== filtroEmpresa) {
+                include = false;
+            }
+            if (filtroFrota && funcionario.frota !== filtroFrota) {
+                include = false;
+            }
+            return include;
+        });
+
+        const tabelaFuncionarios = document.querySelector(
+            '#tabelaFuncionarios tbody'
+        );
+        if (!tabelaFuncionarios) return;
+        tabelaFuncionarios.innerHTML = '';
+        funcionarios.forEach((funcionario) => {
+            const row = tabelaFuncionarios.insertRow();
+            row.insertCell(0).textContent = funcionario.nomeCompleto || 'N/A';
+            row.insertCell(1).textContent = funcionario.empresa || 'N/A';
+            row.insertCell(2).textContent = funcionario.email || 'N/A';
+            row.insertCell(3).textContent = funcionario.telefone || 'N/A';
+            const cellMotorista = row.insertCell(4);
+            cellMotorista.textContent = funcionario.motorista || '-';
+            const cellFinanceiro = row.insertCell(5);
+            cellFinanceiro.textContent = this.getFinancialSummary(funcionario);
+            const cellAcoes = row.insertCell(6);
+            const btnExcluir = document.createElement('button');
+            btnExcluir.textContent = 'Excluir';
+            btnExcluir.className = 'btn btn-excluir';
+            btnExcluir.onclick = () => this.excluirFuncionario(funcionario.id);
+            cellAcoes.appendChild(btnExcluir);
+        });
+    }
+
+    excluirFuncionario(id) {
+        if (confirm('Tem certeza que deseja excluir este funcionário?')) {
+            let funcionarios =
+                JSON.parse(localStorage.getItem('funcionarios')) || [];
+            funcionarios = funcionarios.filter(
+                (funcionario) => funcionario.id !== id
+            );
+            localStorage.setItem('funcionarios', JSON.stringify(funcionarios));
+            this.carregarFuncionarios();
+        }
     }
 
     // ---------------------------- GESTÃO DE MOTORISTAS ----------------------------
@@ -2038,111 +2379,6 @@ class PainelGestorEmpresa {
             btnEditar.onclick = () => this.habilitarEdicaoEmpresa();
         }
         alert('Dados atualizados com sucesso!');
-    }
-
-    carregarAlunos() {
-        const alunos = JSON.parse(localStorage.getItem('alunos')) || [];
-        const tabelaAlunos = document
-            .getElementById('tabelaAlunos')
-            ?.querySelector('tbody');
-        if (!tabelaAlunos) return;
-        tabelaAlunos.innerHTML = '';
-        alunos.forEach((aluno, index) => {
-            const row = tabelaAlunos.insertRow();
-            row.insertCell(0).textContent = aluno.nomeCompleto || 'N/A';
-            row.insertCell(1).textContent = aluno.faculdade || 'N/A';
-            row.insertCell(2).textContent = aluno.email || 'N/A';
-            row.insertCell(3).textContent = aluno.telefone || 'N/A';
-
-            // Exibe o nome do motorista (se tiver)
-            const cellMotorista = row.insertCell(4);
-            cellMotorista.textContent = aluno.motorista || '-';
-
-            // Resumo financeiro
-            const cellFinanceiro = row.insertCell(5);
-            cellFinanceiro.textContent = this.getFinancialSummary(aluno);
-
-            const cellAcoes = row.insertCell(6);
-            const btnEditar = document.createElement('button');
-            btnEditar.textContent = 'Editar';
-            btnEditar.className = 'btn btn-editar';
-            btnEditar.onclick = () => this.abrirEdicaoAluno(index);
-            cellAcoes.appendChild(btnEditar);
-
-            const btnExcluir = document.createElement('button');
-            btnExcluir.textContent = 'Excluir';
-            btnExcluir.className = 'btn btn-excluir';
-            btnExcluir.onclick = () => this.excluirAluno(index);
-            cellAcoes.appendChild(btnExcluir);
-        });
-    }
-
-    abrirEdicaoAluno(index) {
-        const alunos = JSON.parse(localStorage.getItem('alunos')) || [];
-        const aluno = alunos[index];
-        alert(`Editar aluno: ${aluno.nomeCompleto}`);
-    }
-
-    excluirAluno(index) {
-        if (confirm('Tem certeza que deseja excluir este aluno?')) {
-            const alunos = JSON.parse(localStorage.getItem('alunos')) || [];
-            alunos.splice(index, 1);
-            localStorage.setItem('alunos', JSON.stringify(alunos));
-            this.carregarAlunos();
-        }
-    }
-
-    carregarFuncionarios() {
-        const funcionarios =
-            JSON.parse(localStorage.getItem('funcionarios')) || [];
-        const tabelaFuncionarios = document
-            .getElementById('tabelaFuncionarios')
-            ?.querySelector('tbody');
-        if (!tabelaFuncionarios) return;
-        tabelaFuncionarios.innerHTML = '';
-        funcionarios.forEach((funcionario, index) => {
-            const row = tabelaFuncionarios.insertRow();
-            row.insertCell(0).textContent = funcionario.nomeCompleto || 'N/A';
-            row.insertCell(1).textContent = funcionario.empresa || 'N/A';
-            row.insertCell(2).textContent = funcionario.email || 'N/A';
-            row.insertCell(3).textContent = funcionario.telefone || 'N/A';
-
-            const cellMotorista = row.insertCell(4);
-            cellMotorista.textContent = funcionario.motorista || '-';
-
-            const cellFinanceiro = row.insertCell(5);
-            cellFinanceiro.textContent = this.getFinancialSummary(funcionario);
-
-            const cellAcoes = row.insertCell(6);
-            const btnEditar = document.createElement('button');
-            btnEditar.textContent = 'Editar';
-            btnEditar.className = 'btn btn-editar';
-            btnEditar.onclick = () => this.abrirEdicaoFuncionario(index);
-            cellAcoes.appendChild(btnEditar);
-
-            const btnExcluir = document.createElement('button');
-            btnExcluir.textContent = 'Excluir';
-            btnExcluir.className = 'btn btn-excluir';
-            btnExcluir.onclick = () => this.excluirFuncionario(index);
-            cellAcoes.appendChild(btnExcluir);
-        });
-    }
-
-    abrirEdicaoFuncionario(index) {
-        const funcionarios =
-            JSON.parse(localStorage.getItem('funcionarios')) || [];
-        const funcionario = funcionarios[index];
-        alert(`Editar funcionário: ${funcionario.nomeCompleto}`);
-    }
-
-    excluirFuncionario(index) {
-        if (confirm('Tem certeza que deseja excluir este funcionário?')) {
-            const funcionarios =
-                JSON.parse(localStorage.getItem('funcionarios')) || [];
-            funcionarios.splice(index, 1);
-            localStorage.setItem('funcionarios', JSON.stringify(funcionarios));
-            this.carregarFuncionarios();
-        }
     }
 
     // Exibe pequeno resumo de parcelas (última paga, próxima parcela, etc)
