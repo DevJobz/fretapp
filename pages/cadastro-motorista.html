@@ -1,4 +1,3 @@
-<!-- cadastro-motorista.html -->
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
@@ -73,6 +72,33 @@
                         class="input-field"
                         required
                     />
+                </div>
+
+                <!-- Bloco dinâmico para Curso de T.C. (aparece se a categoria contiver "D") -->
+                <div id="divCursoTC" style="display: none">
+                    <label for="cursoTC">Curso de T.C. (sim/não):</label>
+                    <select id="cursoTC" name="cursoTC">
+                        <option value="">Selecione...</option>
+                        <option value="sim">Sim</option>
+                        <option value="nao">Não</option>
+                    </select>
+                    <div id="divCertificado" style="display: none">
+                        <label for="certificado">Certificado:</label>
+                        <input
+                            type="text"
+                            id="certificado"
+                            name="certificado"
+                            maxlength="15"
+                            class="input-field"
+                        />
+                        <label for="validadeCTC">Validade do CTC:</label>
+                        <input
+                            type="date"
+                            id="validadeCTC"
+                            name="validadeCTC"
+                            class="input-field"
+                        />
+                    </div>
                 </div>
 
                 <!-- Campos que o motorista deverá preencher -->

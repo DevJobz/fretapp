@@ -1,3 +1,8 @@
+/* 
+  Caso não haja menções abaixo de mudança em algum trecho, 
+  significa que ele se manteve original. 
+*/
+
 class PainelGestorEmpresa {
     constructor() {
         this.init();
@@ -145,59 +150,44 @@ class PainelGestorEmpresa {
                       <p id="linkGerado" style="margin-top: 0.5rem;"></p>
                     </div>
                     <!-- Bloco de Filtros -->
-<div id="filtrosUsuarios">
-  <div class="filtro-group">
-    <label for="filtroNome">Nome:</label>
-    <input type="text" id="filtroNome" placeholder="Pesquisar nome..." />
-  </div>
-
-  <div class="filtro-group">
-    <label for="filtroTipo">Tipo:</label>
-    <select id="filtroTipo">
-      <option value="todos">Todos</option>
-      <option value="aluno">Alunos</option>
-      <option value="funcionario">Funcionários</option>
-    </select>
-  </div>
-
-  <div class="filtro-group">
-    <label for="filtroFinanceiro">Financeiro:</label>
-    <select id="filtroFinanceiro">
-      <option value="todos">Todos</option>
-      <option value="atraso">Em Atraso</option>
-      <option value="pendente">Pendente</option>
-    </select>
-  </div>
-
-  <div class="filtro-group">
-    <label for="filtroMotoristaUsuarios">Motorista:</label>
-    <select id="filtroMotoristaUsuarios">
-      <option value="">Todos</option>
-    </select>
-  </div>
-
-  <div class="filtro-group">
-    <label for="filtroFrotaUsuarios">Frota:</label>
-    <select id="filtroFrotaUsuarios">
-      <option value="">Todas</option>
-    </select>
-  </div>
-
-  <div class="filtro-group">
-    <label for="filtroFaculdade">Faculdade:</label>
-    <select id="filtroFaculdade">
-      <option value="">Todas</option>
-    </select>
-  </div>
-
-  <div class="filtro-group">
-    <label for="filtroEmpresa">Empresa:</label>
-    <select id="filtroEmpresa">
-      <option value="">Todas</option>
-    </select>
-  </div>
-</div>
-
+                    <div id="filtrosUsuarios" class="filtros-usuarios">
+                        <div class="filtro-group">
+                            <label for="filtroNome">Nome:</label>
+                            <input type="text" id="filtroNome" placeholder="Pesquisar nome...">
+                        </div>
+                        <div class="filtro-group">
+                            <label for="filtroTipo">Tipo:</label>
+                            <select id="filtroTipo">
+                              <option value="todos">Todos</option>
+                              <option value="aluno">Aluno</option>
+                              <option value="funcionario">Funcionário</option>
+                            </select>
+                        </div>
+                        <div class="filtro-group">
+                            <label for="filtroFinanceiro">Financeiro:</label>
+                            <select id="filtroFinanceiro">
+                              <option value="todos">Todos</option>
+                              <option value="atraso">Atraso</option>
+                              <option value="pendente">Pendente</option>
+                            </select>
+                        </div>
+                        <div class="filtro-group">
+                            <label for="filtroMotoristaUsuarios">Motorista:</label>
+                            <input type="text" id="filtroMotoristaUsuarios" placeholder="Filtrar por motorista">
+                        </div>
+                        <div class="filtro-group">
+                            <label for="filtroFrotaUsuarios">Frota:</label>
+                            <input type="text" id="filtroFrotaUsuarios" placeholder="Filtrar por frota">
+                        </div>
+                        <div class="filtro-group">
+                            <label for="filtroFaculdade">Faculdade:</label>
+                            <input type="text" id="filtroFaculdade" placeholder="Filtrar por faculdade">
+                        </div>
+                        <div class="filtro-group">
+                            <label for="filtroEmpresa">Empresa:</label>
+                            <input type="text" id="filtroEmpresa" placeholder="Filtrar por empresa">
+                        </div>
+                    </div>
                     <button class="accordion-header" aria-expanded="false">
                       <span>Lista de Alunos</span>
                       <i class="fas fa-chevron-down"></i>
@@ -244,6 +234,7 @@ class PainelGestorEmpresa {
                     </div>
                 `;
                 break;
+
             case 'motoristas':
                 conteudo = `
                     <h2>Gestão de Motoristas</h2>
@@ -260,9 +251,69 @@ class PainelGestorEmpresa {
                         <input type="date" id="driverExpedicao" required>
                         <label>Validade CNH</label>
                         <input type="date" id="driverValidade" required>
-                        <button type="submit" class="btn btn-primary">Concluir Cadastro</button>
+                        <!-- O bloco de Curso de T.C. será injetado dinamicamente se necessário -->
+                        <button type="submit" class="btn btn-primary" style="max-width:200px;">Concluir Cadastro</button>
                       </form>
                       <div id="linkGeradoMotorista" style="margin-top: 1rem;"></div>
+                    </div>
+
+                    <!-- Filtros específicos para motoristas -->
+                    <!-- Aplicamos um CSS para organizar melhor em desktop -->
+                    <style>
+                      #filtrosMotoristas {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 1rem;
+                      }
+                      #filtrosMotoristas .filtro-group {
+                        display: flex;
+                        flex-direction: column;
+                        min-width: 130px;
+                      }
+                      @media (max-width: 768px) {
+                        #filtrosMotoristas {
+                          flex-direction: column;
+                        }
+                      }
+                      /* Ajuste de tamanho do select de Curso T.C. para não ficar gigante no desktop */
+                      #cursoTC, #editCursoTC {
+                        max-width: 200px;
+                      }
+                    </style>
+
+                    <div id="filtrosMotoristas" style="margin-bottom: 1rem;">
+                        <div class="filtro-group">
+                            <label for="filtroNomeMotorista">Nome:</label>
+                            <input type="text" id="filtroNomeMotorista" placeholder="Pesquisar nome...">
+                        </div>
+                        <div class="filtro-group">
+                            <label for="filtroAssociacao">Associação:</label>
+                            <select id="filtroAssociacao">
+                                <option value="todos">Todos</option>
+                                <option value="com">Com associação</option>
+                                <option value="sem">Sem associação</option>
+                            </select>
+                        </div>
+                        <div class="filtro-group">
+                            <label for="filtroValidade">Validade CNH:</label>
+                            <select id="filtroValidade">
+                                <option value="todos">Todos</option>
+                                <option value="valido">Válido</option>
+                                <option value="vencido">Vencido</option>
+                            </select>
+                        </div>
+                        <div class="filtro-group">
+                            <label for="filtroCategoria">Categoria:</label>
+                            <input type="text" id="filtroCategoria" placeholder="Ex: AB">
+                        </div>
+                        <div class="filtro-group">
+                            <label for="filtroStatusMotorista">Status:</label>
+                            <select id="filtroStatusMotorista">
+                                <option value="todos">Todos</option>
+                                <option value="concluido">Concluído</option>
+                                <option value="pendente">Pendente</option>
+                            </select>
+                        </div>
                     </div>
                     <div id="tableMotoristasContainer">
                       <h3>Lista de Motoristas</h3>
@@ -270,15 +321,19 @@ class PainelGestorEmpresa {
                         <table id="tabelaMotoristas">
                           <thead>
                             <tr>
-                              <th>Nome</th>
-                              <th>CNH</th>
-                              <th>Categoria</th>
-                              <th>Validade</th>
-                              <th>Status</th>
-                              <th>Frota Responsável</th>
-                              <th>Ações</th>
+                                <th>Nome</th>
+                                <th>CNH</th>
+                                <th>Categoria</th>
+                                <th>Validade</th>
+                                <th>Status</th>
+                                <th>Apto p/ Dirigir</th>
+                                <th>Apto p/ Fretamento</th>
+                                <th>Qtd Alunos</th>
+                                <th>Qtd Funcionários</th>
+                                <th>Frota Responsável</th>
+                                <th>Ações</th>
                             </tr>
-                          </thead>
+                            </thead>
                           <tbody></tbody>
                         </table>
                       </div>
@@ -296,10 +351,13 @@ class PainelGestorEmpresa {
                     </div>
                 `;
                 break;
+
             case 'rotas':
                 conteudo = `<h2>Gestão de Rotas</h2><p>Em breve...</p>`;
                 break;
+
             case 'veiculos':
+                // (Manteve-se igual)
                 conteudo = `
                     <h2>Gestão de Veículos</h2>
                     <p>Cadastre, gerencie e acompanhe a disponibilidade e manutenção.</p>
@@ -367,7 +425,9 @@ class PainelGestorEmpresa {
                     </div>
                 `;
                 break;
+
             case 'financeiro':
+                // (Manteve-se igual)
                 conteudo = `
                     <h2>Gestão Financeira</h2>
                     <div id="filtroFinanceiro" style="margin-bottom: 1rem;">
@@ -397,13 +457,17 @@ class PainelGestorEmpresa {
                     </div>
                 `;
                 break;
+
             case 'relatorios':
                 conteudo = `<h2>Relatórios</h2><p>Em breve...</p>`;
                 break;
+
             case 'feedbacks':
                 conteudo = `<h2>Feedbacks</h2><p>Em breve...</p>`;
                 break;
+
             case 'configuracoes':
+                // (Manteve-se igual)
                 conteudo = `
                     <h2>Configurações</h2>
                     <p>Aqui você pode definir políticas e termos.</p>
@@ -529,9 +593,11 @@ class PainelGestorEmpresa {
                     </div>
                 `;
                 break;
+
             case 'sair':
                 window.location.href = '../index.html';
                 break;
+
             default:
                 conteudo = `<h2>Selecione uma aba para começar</h2>`;
         }
@@ -543,7 +609,7 @@ class PainelGestorEmpresa {
             document.querySelector('.nav-lateral').classList.remove('active');
         }
 
-        // Se a aba for "usuarios", inicializa os filtros e renderiza as tabelas filtradas
+        // Aba "usuarios"
         if (aba === 'usuarios') {
             const gerarLink = document.getElementById('gerarLink');
             if (gerarLink) {
@@ -555,8 +621,9 @@ class PainelGestorEmpresa {
             this.carregarAlunos();
             this.carregarFuncionarios();
         }
+
+        // Aba "configuracoes"
         if (aba === 'configuracoes') {
-            // (Chamadas inalteradas)
             this.carregarDadosEmpresa();
             this.carregarInstituicoes();
             this.carregarEmpresas();
@@ -587,6 +654,8 @@ class PainelGestorEmpresa {
                 });
             }
         }
+
+        // Aba "veiculos"
         if (aba === 'veiculos') {
             const empresaAtiva = JSON.parse(
                 localStorage.getItem('empresaAtiva')
@@ -598,10 +667,21 @@ class PainelGestorEmpresa {
             this.initVeiculosEvents();
             this.carregarVeiculos();
         }
+
+        // Aba "motoristas"
         if (aba === 'motoristas') {
             this.initMotoristasEvents();
             this.carregarMotoristas();
+            const filtros = document.querySelectorAll(
+                '#filtrosMotoristas input, #filtrosMotoristas select'
+            );
+            filtros.forEach((el) => {
+                el.addEventListener('input', () => this.carregarMotoristas());
+                el.addEventListener('change', () => this.carregarMotoristas());
+            });
         }
+
+        // Aba "financeiro"
         if (aba === 'financeiro') {
             this.carregarFinanceiro();
         }
@@ -620,7 +700,7 @@ class PainelGestorEmpresa {
         });
     }
 
-    // Método para inicializar os filtros na aba de usuários
+    // MÉTODO PARA INICIALIZAR FILTROS NA ABA DE USUÁRIOS
     inicializarFiltrosUsuarios() {
         const filtroNome = document.getElementById('filtroNome');
         const filtroTipo = document.getElementById('filtroTipo');
@@ -634,7 +714,6 @@ class PainelGestorEmpresa {
         const filtroFaculdade = document.getElementById('filtroFaculdade');
         const filtroEmpresa = document.getElementById('filtroEmpresa');
 
-        // Adiciona listeners para disparar os filtros
         [
             filtroNome,
             filtroTipo,
@@ -655,69 +734,9 @@ class PainelGestorEmpresa {
                 });
             }
         });
-
-        // Preenche dropdown de Motorista (somente motoristas com alguma associação)
-        const motoristas = JSON.parse(localStorage.getItem('motoristas')) || [];
-        const optionsMotorista = [
-            ...new Set(
-                motoristas
-                    .filter((m) => m.associados && m.associados.length > 0)
-                    .map((m) => ({ id: m.id, nome: m.nomeCompleto }))
-            ),
-        ];
-        optionsMotorista.forEach((m) => {
-            const option = document.createElement('option');
-            option.value = m.id;
-            option.textContent = m.nome;
-            filtroMotoristaUsuarios.appendChild(option);
-        });
-
-        // Preenche dropdown de Frota (somente para veículos de Fretamento com associação)
-        const empresaAtiva =
-            JSON.parse(localStorage.getItem('empresaAtiva')) || {};
-        const veiculos = empresaAtiva.veiculos || [];
-        const alunos = JSON.parse(localStorage.getItem('alunos')) || [];
-        const funcionarios =
-            JSON.parse(localStorage.getItem('funcionarios')) || [];
-        const fleetSet = new Set();
-        alunos.forEach((a) => {
-            if (a.frota) fleetSet.add(a.frota);
-        });
-        funcionarios.forEach((f) => {
-            if (f.frota) fleetSet.add(f.frota);
-        });
-        const optionsFrota = veiculos.filter(
-            (v) => v.uso === 'Fretamento' && fleetSet.has(v.frotaNumero)
-        );
-        optionsFrota.forEach((v) => {
-            const option = document.createElement('option');
-            option.value = v.frotaNumero;
-            option.textContent = `${v.frotaNumero} - ${v.modelo}`;
-            filtroFrotaUsuarios.appendChild(option);
-        });
-
-        // Preenche dropdown de Faculdade (dos alunos)
-        const facSet = new Set(alunos.map((a) => a.faculdade).filter(Boolean));
-        facSet.forEach((fac) => {
-            const option = document.createElement('option');
-            option.value = fac;
-            option.textContent = fac;
-            filtroFaculdade.appendChild(option);
-        });
-
-        // Preenche dropdown de Empresa (dos funcionários)
-        const empSet = new Set(
-            funcionarios.map((f) => f.empresa).filter(Boolean)
-        );
-        empSet.forEach((emp) => {
-            const option = document.createElement('option');
-            option.value = emp;
-            option.textContent = emp;
-            filtroEmpresa.appendChild(option);
-        });
     }
 
-    // FUNÇÕES PARA A ABA DE USUÁRIOS – Alunos
+    // FUNÇÕES PARA ABA DE USUÁRIOS – ALUNOS
     carregarAlunos() {
         let alunos = JSON.parse(localStorage.getItem('alunos')) || [];
         const filtroNome = document.getElementById('filtroNome')
@@ -741,7 +760,6 @@ class PainelGestorEmpresa {
             ? document.getElementById('filtroFrotaUsuarios').value
             : '';
 
-        // Se o filtro de tipo for "funcionario", não exibe alunos
         if (filtroTipo === 'funcionario') {
             alunos = [];
         }
@@ -788,7 +806,6 @@ class PainelGestorEmpresa {
             const cellFinanceiro = row.insertCell(5);
             cellFinanceiro.textContent = this.getFinancialSummary(aluno);
             const cellAcoes = row.insertCell(6);
-            // Apenas botão Excluir
             const btnExcluir = document.createElement('button');
             btnExcluir.textContent = 'Excluir';
             btnExcluir.className = 'btn btn-excluir';
@@ -806,7 +823,7 @@ class PainelGestorEmpresa {
         }
     }
 
-    // FUNÇÕES PARA A ABA DE USUÁRIOS – Funcionários
+    // FUNÇÕES PARA ABA DE USUÁRIOS – FUNCIONÁRIOS
     carregarFuncionarios() {
         let funcionarios =
             JSON.parse(localStorage.getItem('funcionarios')) || [];
@@ -831,7 +848,6 @@ class PainelGestorEmpresa {
             ? document.getElementById('filtroFrotaUsuarios').value
             : '';
 
-        // Se o filtro de tipo for "aluno", não exibe funcionários
         if (filtroTipo === 'aluno') {
             funcionarios = [];
         }
@@ -906,7 +922,6 @@ class PainelGestorEmpresa {
     }
 
     // ---------------------------- GESTÃO DE MOTORISTAS ----------------------------
-
     initMotoristasEvents() {
         const form = document.getElementById('formCadastroMotorista');
         if (form) {
@@ -931,13 +946,142 @@ class PainelGestorEmpresa {
             return;
         }
 
+        if (!/^[A-Za-zÀ-ú\s]{8,}$/.test(nomeCompleto)) {
+            alert(
+                'Nome Completo deve ter no mínimo 8 caracteres e conter apenas letras.'
+            );
+            return;
+        }
+
+        if (!/^\d{11}$/.test(cnh)) {
+            alert('CNH deve conter exatamente 11 dígitos (somente números).');
+            return;
+        }
+        let motoristas = JSON.parse(localStorage.getItem('motoristas')) || [];
+        if (motoristas.some((m) => m.cnh === cnh)) {
+            alert('Já existe um motorista com este número de CNH.');
+            return;
+        }
+
+        if (!/^[A-Za-zÀ-ú]{1,5}$/.test(categoria)) {
+            alert(
+                'Categoria CNH deve conter apenas letras e ter entre 1 e 5 caracteres.'
+            );
+            return;
+        }
+
+        if (isNaN(new Date(expedicao)) || isNaN(new Date(validade))) {
+            alert('Datas de expedição ou validade inválidas.');
+            return;
+        }
+
+        let today = new Date().toISOString().split('T')[0];
+
+        let cursoTC = null,
+            certificado = null,
+            validadeCTC = null;
+        if (/d/i.test(categoria)) {
+            let divCurso = document.getElementById('divCursoTC');
+            if (!divCurso) {
+                divCurso = document.createElement('div');
+                divCurso.id = 'divCursoTC';
+                divCurso.innerHTML = `
+                  <label>Curso de T.C. (sim/não):</label>
+                  <select id="cursoTC" required style="max-width:200px;">
+                    <option value="">Selecione...</option>
+                    <option value="sim">Sim</option>
+                    <option value="nao">Não</option>
+                  </select>
+                  <div id="divCertificado" style="display:none;">
+                    <label>Certificado:</label>
+                    <input type="text" id="certificado" maxlength="15" required>
+                    <label>Validade do CTC:</label>
+                    <input type="date" id="validadeCTC" required>
+                  </div>
+                `;
+                const form = document.getElementById('formCadastroMotorista');
+                form.insertBefore(
+                    divCurso,
+                    form.querySelector('button[type="submit"]')
+                );
+                document
+                    .getElementById('cursoTC')
+                    .addEventListener('change', function () {
+                        if (this.value === 'sim') {
+                            document.getElementById(
+                                'divCertificado'
+                            ).style.display = 'block';
+                            document
+                                .getElementById('certificado')
+                                .setAttribute('required', '');
+                            document
+                                .getElementById('validadeCTC')
+                                .setAttribute('required', '');
+                        } else {
+                            document.getElementById(
+                                'divCertificado'
+                            ).style.display = 'none';
+                            document
+                                .getElementById('certificado')
+                                .removeAttribute('required');
+                            document
+                                .getElementById('validadeCTC')
+                                .removeAttribute('required');
+                        }
+                    });
+            }
+            cursoTC = document.getElementById('cursoTC').value;
+            if (!cursoTC) {
+                alert('Selecione se o motorista possui o Curso de T.C.');
+                return;
+            }
+            if (cursoTC === 'sim') {
+                certificado = document
+                    .getElementById('certificado')
+                    .value.trim();
+                validadeCTC = document.getElementById('validadeCTC').value;
+                if (!certificado || !validadeCTC) {
+                    alert(
+                        'Preencha os campos de Certificado e Validade do CTC.'
+                    );
+                    return;
+                }
+                if (!/^[A-Za-z0-9]{1,15}$/.test(certificado)) {
+                    alert(
+                        'Certificado deve conter apenas letras e números, até 15 caracteres.'
+                    );
+                    return;
+                }
+                if (new Date(validadeCTC) <= new Date()) {
+                    alert('Validade do CTC deve ser uma data futura.');
+                    return;
+                }
+            }
+        }
+
+        let cnhValida = validade >= today;
+        const aptoDirigir = cnhValida;
+        let aptoFretamento = false;
+        if (/d/i.test(categoria)) {
+            if (cursoTC === 'sim' && new Date(validadeCTC) > new Date()) {
+                aptoFretamento = true;
+            }
+        }
+
         const id = Date.now().toString();
         const linkBase = window.location.origin;
-        const linkCadastro = `${linkBase}/pages/cadastro-motorista.html?driverId=${id}&nome=${encodeURIComponent(
-            nomeCompleto
-        )}&cnh=${encodeURIComponent(cnh)}&categoria=${encodeURIComponent(
-            categoria
-        )}&expedicao=${expedicao}&validade=${validade}`;
+        const linkCadastro =
+            `${linkBase}/pages/cadastro-motorista.html?driverId=${id}&nome=${encodeURIComponent(
+                nomeCompleto
+            )}&cnh=${encodeURIComponent(cnh)}&categoria=${encodeURIComponent(
+                categoria
+            )}&expedicao=${expedicao}&validade=${validade}` +
+            (cursoTC ? `&cursoTC=${cursoTC}` : '') +
+            (cursoTC === 'sim'
+                ? `&certificado=${encodeURIComponent(
+                      certificado
+                  )}&validadeCTC=${validadeCTC}`
+                : '');
 
         const motorista = {
             id,
@@ -947,12 +1091,18 @@ class PainelGestorEmpresa {
             expedicao,
             validade,
             status: 'pendente',
-            link: linkCadastro,
+            link: linkCadastro, // armazenamos o link para posterior consulta
             frotaResponsavel: '',
             associados: [],
+            aptoDirigir: aptoDirigir,
+            aptoFretamento: aptoFretamento,
+            cursoTC: /d/i.test(categoria) ? cursoTC : null,
+            certificado:
+                /d/i.test(categoria) && cursoTC === 'sim' ? certificado : null,
+            validadeCTC:
+                /d/i.test(categoria) && cursoTC === 'sim' ? validadeCTC : null,
         };
 
-        let motoristas = JSON.parse(localStorage.getItem('motoristas')) || [];
         motoristas.push(motorista);
         localStorage.setItem('motoristas', JSON.stringify(motoristas));
 
@@ -961,6 +1111,280 @@ class PainelGestorEmpresa {
           Link de cadastro: <a href="${linkCadastro}" target="_blank">${linkCadastro}</a>
         `;
         document.getElementById('formCadastroMotorista').reset();
+        const divCurso = document.getElementById('divCursoTC');
+        if (divCurso) {
+            divCurso.style.display = 'none';
+        }
+        this.carregarMotoristas();
+    }
+
+    habilitarEdicaoMotorista(index) {
+        let motoristas = JSON.parse(localStorage.getItem('motoristas')) || [];
+        const motorista = motoristas[index];
+        const container = document.getElementById('motoristaTabsContent');
+
+        container.innerHTML = `
+            <h3>Editar Dados do Motorista</h3>
+            <form id="formEdicaoMotorista" class="responsive-form">
+              <label>Nome Completo</label>
+              <input type="text" id="editNomeCompleto" value="${
+                  motorista.nomeCompleto
+              }" required>
+              <label>CNH</label>
+              <input type="text" id="editCnh" value="${motorista.cnh}" required>
+              <label>Categoria CNH</label>
+              <input type="text" id="editCategoria" value="${
+                  motorista.categoria
+              }" required>
+              <label>Expedição CNH</label>
+              <input type="date" id="editExpedicao" value="${
+                  motorista.expedicao
+              }" required>
+              <label>Validade CNH</label>
+              <input type="date" id="editValidade" value="${
+                  motorista.validade
+              }" required>
+              <label>CPF</label>
+              <input type="text" id="editCpf" value="${
+                  motorista.cpf || ''
+              }" required>
+              <label>Data de Nascimento</label>
+              <input type="date" id="editDataNascimento" value="${
+                  motorista.dataNascimento || ''
+              }" required>
+              <label>E-mail</label>
+              <input type="email" id="editEmail" value="${
+                  motorista.email || ''
+              }" required>
+              <label>Telefone</label>
+              <input type="tel" id="editTelefone" value="${
+                  motorista.telefone || ''
+              }" required>
+              <!-- O bloco para Curso de T.C. será injetado dinamicamente se necessário -->
+              <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            </form>
+        `;
+
+        // Listener para mudança de categoria (exibe ou remove o bloco do Curso de T.C.)
+        document
+            .getElementById('editCategoria')
+            .addEventListener('input', function () {
+                const valor = this.value;
+                const form = document.getElementById('formEdicaoMotorista');
+                let divCursoTC = document.getElementById('editDivCursoTC');
+                if (/d/i.test(valor)) {
+                    if (!divCursoTC) {
+                        divCursoTC = document.createElement('div');
+                        divCursoTC.id = 'editDivCursoTC';
+                        divCursoTC.innerHTML = `
+                        <label>Curso de T.C. (sim/não):</label>
+                        <select id="editCursoTC" required style="max-width:200px;">
+                          <option value="">Selecione...</option>
+                          <option value="sim">Sim</option>
+                          <option value="nao">Não</option>
+                        </select>
+                        <div id="editDivCertificado" style="display:none;">
+                          <label>Certificado:</label>
+                          <input type="text" id="editCertificado" maxlength="15" required>
+                          <label>Validade do CTC:</label>
+                          <input type="date" id="editValidadeCTC" required>
+                        </div>
+                    `;
+                        form.insertBefore(
+                            divCursoTC,
+                            form.querySelector('button[type="submit"]')
+                        );
+                        document
+                            .getElementById('editCursoTC')
+                            .addEventListener('change', function () {
+                                const editDivCertificado =
+                                    document.getElementById(
+                                        'editDivCertificado'
+                                    );
+                                if (this.value === 'sim') {
+                                    editDivCertificado.style.display = 'block';
+                                    document
+                                        .getElementById('editCertificado')
+                                        .setAttribute('required', '');
+                                    document
+                                        .getElementById('editValidadeCTC')
+                                        .setAttribute('required', '');
+                                } else {
+                                    editDivCertificado.style.display = 'none';
+                                    document
+                                        .getElementById('editCertificado')
+                                        .removeAttribute('required');
+                                    document
+                                        .getElementById('editValidadeCTC')
+                                        .removeAttribute('required');
+                                }
+                            });
+                    }
+                } else {
+                    if (divCursoTC) {
+                        divCursoTC.remove();
+                    }
+                }
+            });
+
+        // Listener para submissão do formulário de edição
+        document
+            .getElementById('formEdicaoMotorista')
+            .addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.salvarEdicaoMotorista(index);
+            });
+
+        // Se a categoria atual do motorista já tiver "D", recriamos o bloco do T.C. para exibir
+        const editCategoriaInput = document.getElementById('editCategoria');
+        if (/d/i.test(editCategoriaInput.value)) {
+            let divCursoTC = document.createElement('div');
+            divCursoTC.id = 'editDivCursoTC';
+            divCursoTC.innerHTML = `
+                <label>Curso de T.C. (sim/não):</label>
+                <select id="editCursoTC" required style="max-width:200px;">
+                  <option value="">Selecione...</option>
+                  <option value="sim" ${
+                      motorista.cursoTC === 'sim' ? 'selected' : ''
+                  }>Sim</option>
+                  <option value="nao" ${
+                      motorista.cursoTC === 'nao' ? 'selected' : ''
+                  }>Não</option>
+                </select>
+                <div id="editDivCertificado" style="display: ${
+                    motorista.cursoTC === 'sim' ? 'block' : 'none'
+                };">
+                  <label>Certificado:</label>
+                  <input type="text" id="editCertificado" maxlength="15" 
+                         value="${motorista.certificado || ''}" 
+                         ${motorista.cursoTC === 'sim' ? 'required' : ''}>
+                  <label>Validade do CTC:</label>
+                  <input type="date" id="editValidadeCTC" 
+                         value="${motorista.validadeCTC || ''}" 
+                         ${motorista.cursoTC === 'sim' ? 'required' : ''}>
+                </div>
+            `;
+            const form = document.getElementById('formEdicaoMotorista');
+            form.insertBefore(
+                divCursoTC,
+                form.querySelector('button[type="submit"]')
+            );
+
+            document
+                .getElementById('editCursoTC')
+                .addEventListener('change', function () {
+                    const editDivCertificado =
+                        document.getElementById('editDivCertificado');
+                    if (this.value === 'sim') {
+                        editDivCertificado.style.display = 'block';
+                        document
+                            .getElementById('editCertificado')
+                            .setAttribute('required', '');
+                        document
+                            .getElementById('editValidadeCTC')
+                            .setAttribute('required', '');
+                    } else {
+                        editDivCertificado.style.display = 'none';
+                        document
+                            .getElementById('editCertificado')
+                            .removeAttribute('required');
+                        document
+                            .getElementById('editValidadeCTC')
+                            .removeAttribute('required');
+                    }
+                });
+        }
+    }
+
+    salvarEdicaoMotorista(index) {
+        let motoristas = JSON.parse(localStorage.getItem('motoristas')) || [];
+        let motorista = motoristas[index];
+        motorista.nomeCompleto = document
+            .getElementById('editNomeCompleto')
+            .value.trim();
+        motorista.cnh = document.getElementById('editCnh').value.trim();
+        motorista.categoria = document
+            .getElementById('editCategoria')
+            .value.trim();
+        motorista.expedicao = document.getElementById('editExpedicao').value;
+        motorista.validade = document.getElementById('editValidade').value;
+        motorista.cpf = document.getElementById('editCpf').value;
+        motorista.dataNascimento =
+            document.getElementById('editDataNascimento').value;
+        motorista.email = document.getElementById('editEmail').value;
+        motorista.telefone = document.getElementById('editTelefone').value;
+
+        // Se a categoria contém "D", tenta atualizar os dados do Curso de T.C.
+        if (/d/i.test(motorista.categoria)) {
+            const editCursoTC = document.getElementById('editCursoTC');
+            if (editCursoTC) {
+                motorista.cursoTC = editCursoTC.value;
+                if (motorista.cursoTC === 'sim') {
+                    const editCertificado =
+                        document.getElementById('editCertificado');
+                    const editValidadeCTC =
+                        document.getElementById('editValidadeCTC');
+                    if (editCertificado && editValidadeCTC) {
+                        motorista.certificado = editCertificado.value.trim();
+                        motorista.validadeCTC = editValidadeCTC.value;
+                    }
+                } else {
+                    motorista.certificado = null;
+                    motorista.validadeCTC = null;
+                }
+            }
+        } else {
+            // Se a nova categoria não contém "D", garante que os campos de TC sejam nulos
+            motorista.cursoTC = null;
+            motorista.certificado = null;
+            motorista.validadeCTC = null;
+        }
+
+        // Recalcula aptidão
+        let today = new Date().toISOString().split('T')[0];
+        let cnhValida = motorista.validade >= today;
+        motorista.aptoDirigir = cnhValida;
+        if (/d/i.test(motorista.categoria)) {
+            if (
+                motorista.cursoTC === 'sim' &&
+                new Date(motorista.validadeCTC) > new Date()
+            ) {
+                motorista.aptoFretamento = true;
+            } else {
+                motorista.aptoFretamento = false;
+            }
+        } else {
+            motorista.aptoFretamento = false;
+        }
+
+        // Atualiza o motorista no array e salva
+        motoristas[index] = motorista;
+        localStorage.setItem('motoristas', JSON.stringify(motoristas));
+
+        // Atualiza os usuários associados (alunos e funcionários)
+        let alunos = JSON.parse(localStorage.getItem('alunos')) || [];
+        alunos = alunos.map((aluno) => {
+            if (aluno.motoristaId === motorista.id) {
+                aluno.motorista = motorista.nomeCompleto;
+                aluno.frota = motorista.frotaResponsavel || '';
+            }
+            return aluno;
+        });
+        localStorage.setItem('alunos', JSON.stringify(alunos));
+
+        let funcionarios =
+            JSON.parse(localStorage.getItem('funcionarios')) || [];
+        funcionarios = funcionarios.map((funcionario) => {
+            if (funcionario.motoristaId === motorista.id) {
+                funcionario.motorista = motorista.nomeCompleto;
+                funcionario.frota = motorista.frotaResponsavel || '';
+            }
+            return funcionario;
+        });
+        localStorage.setItem('funcionarios', JSON.stringify(funcionarios));
+
+        alert('Dados do motorista atualizados!');
+        this.renderMotoristaTab('dados', motorista, index);
         this.carregarMotoristas();
     }
 
@@ -968,12 +1392,91 @@ class PainelGestorEmpresa {
         const tabela = document.querySelector('#tabelaMotoristas tbody');
         if (!tabela) return;
         tabela.innerHTML = '';
+
         let motoristas = JSON.parse(localStorage.getItem('motoristas')) || [];
         const hoje = new Date().toISOString().split('T')[0];
 
+        // Recupera filtros
+        const filtroNome = document.getElementById('filtroNomeMotorista')
+            ? document
+                  .getElementById('filtroNomeMotorista')
+                  .value.trim()
+                  .toLowerCase()
+            : '';
+        const filtroAssociacao = document.getElementById('filtroAssociacao')
+            ? document.getElementById('filtroAssociacao').value
+            : 'todos';
+        const filtroValidade = document.getElementById('filtroValidade')
+            ? document.getElementById('filtroValidade').value
+            : 'todos';
+        const filtroCategoria = document.getElementById('filtroCategoria')
+            ? document
+                  .getElementById('filtroCategoria')
+                  .value.trim()
+                  .toLowerCase()
+            : '';
+        const filtroStatus = document.getElementById('filtroStatusMotorista')
+            ? document.getElementById('filtroStatusMotorista').value
+            : 'todos';
+
+        // Aplica os filtros ao array de motoristas
+        motoristas = motoristas.filter((m) => {
+            let include = true;
+
+            // Filtra pelo nome (pesquisa parcial, sem case sensitive)
+            if (
+                filtroNome &&
+                !m.nomeCompleto.toLowerCase().includes(filtroNome)
+            ) {
+                include = false;
+            }
+
+            // Filtro por associação: se "com" exige que o motorista tenha algum associado; se "sem", exige que não haja
+            if (filtroAssociacao !== 'todos') {
+                if (filtroAssociacao === 'com') {
+                    if (!m.associados || m.associados.length === 0)
+                        include = false;
+                } else if (filtroAssociacao === 'sem') {
+                    if (m.associados && m.associados.length > 0)
+                        include = false;
+                }
+            }
+
+            // Filtra pela validade da CNH
+            if (filtroValidade !== 'todos') {
+                if (filtroValidade === 'valido' && m.validade < hoje)
+                    include = false;
+                if (filtroValidade === 'vencido' && m.validade >= hoje)
+                    include = false;
+            }
+
+            // Filtra pela categoria
+            if (
+                filtroCategoria &&
+                !m.categoria.toLowerCase().includes(filtroCategoria)
+            ) {
+                include = false;
+            }
+
+            // Filtra pelo status
+            if (filtroStatus !== 'todos' && m.status !== filtroStatus) {
+                include = false;
+            }
+
+            return include;
+        });
+
+        // Obtém alunos e funcionários para contagem (se necessário)
+        const alunos = JSON.parse(localStorage.getItem('alunos')) || [];
+        const funcionarios =
+            JSON.parse(localStorage.getItem('funcionarios')) || [];
+
+        // Agora, popula a tabela com os motoristas filtrados
         motoristas.forEach((m, index) => {
             const row = tabela.insertRow();
-            const cellNome = row.insertCell(0);
+
+            // Coluna 1: Nome (clicável para exibir detalhes)
+            const cellNome = row.insertCell();
             cellNome.textContent = m.nomeCompleto || 'Sem nome';
             cellNome.style.cursor = 'pointer';
             cellNome.style.color = '#2575fc';
@@ -981,16 +1484,50 @@ class PainelGestorEmpresa {
             cellNome.addEventListener('click', () =>
                 this.exibirDetalhesMotorista(index)
             );
-            row.insertCell(1).textContent = m.cnh;
-            row.insertCell(2).textContent = m.categoria;
-            row.insertCell(3).textContent =
-                m.validade < hoje ? 'Vencido' : 'Válido';
-            row.insertCell(4).textContent = m.status;
 
-            // Frota Responsável
-            const cellFrota = row.insertCell(5);
+            // Coluna 2: CNH
+            const cellCnh = row.insertCell();
+            cellCnh.textContent = m.cnh;
+
+            // Coluna 3: Categoria
+            const cellCategoria = row.insertCell();
+            cellCategoria.textContent = m.categoria;
+
+            // Coluna 4: Validade
+            const cellValidade = row.insertCell();
+            cellValidade.textContent = m.validade < hoje ? 'Vencido' : 'Válido';
+
+            // Coluna 5: Status
+            const cellStatus = row.insertCell();
+            cellStatus.textContent = m.status;
+
+            // Coluna 6: Apto p/ Dirigir
+            const cellAptoDirigir = row.insertCell();
+            cellAptoDirigir.textContent = m.aptoDirigir ? 'Sim' : 'Não';
+
+            // Coluna 7: Apto p/ Fretamento
+            const cellAptoFretamento = row.insertCell();
+            cellAptoFretamento.textContent = m.aptoFretamento ? 'Sim' : 'Não';
+
+            // Coluna 8: Qtd Alunos
+            const cellQtdAlunos = row.insertCell();
+            const countAlunos = alunos.filter(
+                (a) => a.motoristaId === m.id
+            ).length;
+            cellQtdAlunos.textContent = countAlunos;
+
+            // Coluna 9: Qtd Funcionários
+            const cellQtdFuncionarios = row.insertCell();
+            const countFuncs = funcionarios.filter(
+                (f) => f.motoristaId === m.id
+            ).length;
+            cellQtdFuncionarios.textContent = countFuncs;
+
+            // Coluna 10: Frota Responsável – select drop-down
+            const cellFrota = row.insertCell();
             const selectFrota = document.createElement('select');
             selectFrota.innerHTML = `<option value="">Selecione...</option>`;
+
             const empresaAtiva =
                 JSON.parse(localStorage.getItem('empresaAtiva')) || {};
             const veiculos = empresaAtiva.veiculos || [];
@@ -1003,8 +1540,28 @@ class PainelGestorEmpresa {
                 }
                 selectFrota.appendChild(option);
             });
+
             selectFrota.addEventListener('change', () => {
-                m.frotaResponsavel = selectFrota.value;
+                const selectedFrota = selectFrota.value;
+                const empresaAtualizada =
+                    JSON.parse(localStorage.getItem('empresaAtiva')) || {};
+                const veiculosAtualizados = empresaAtualizada.veiculos || [];
+                const selectedVehicle = veiculosAtualizados.find(
+                    (v) => v.frotaNumero === selectedFrota
+                );
+
+                // Se o veículo é do tipo "Fretamento" e o motorista não está apto, impede alteração
+                if (
+                    selectedVehicle &&
+                    selectedVehicle.uso === 'Fretamento' &&
+                    !m.aptoFretamento
+                ) {
+                    alert('Motorista não apto para frota de fretamento.');
+                    selectFrota.value = m.frotaResponsavel || '';
+                    return;
+                }
+
+                m.frotaResponsavel = selectedFrota;
                 let motoristasAtualizados =
                     JSON.parse(localStorage.getItem('motoristas')) || [];
                 motoristasAtualizados[index] = m;
@@ -1016,7 +1573,8 @@ class PainelGestorEmpresa {
             });
             cellFrota.appendChild(selectFrota);
 
-            const cellAcoes = row.insertCell(6);
+            // Coluna 11: Ações – agora SOMENTE botão Excluir (removemos o Editar)
+            const cellAcoes = row.insertCell();
             const btnExcluir = document.createElement('button');
             btnExcluir.textContent = 'Excluir';
             btnExcluir.className = 'btn btn-excluir';
@@ -1029,10 +1587,40 @@ class PainelGestorEmpresa {
         if (confirm('Tem certeza que deseja excluir este motorista?')) {
             let motoristas =
                 JSON.parse(localStorage.getItem('motoristas')) || [];
+            const motorista = motoristas[index];
+
+            // Atualiza os alunos: remove associação com o motorista excluído
+            let alunos = JSON.parse(localStorage.getItem('alunos')) || [];
+            alunos = alunos.map((aluno) => {
+                if (aluno.motoristaId === motorista.id) {
+                    delete aluno.motoristaId;
+                    delete aluno.motorista;
+                    delete aluno.frota;
+                }
+                return aluno;
+            });
+            localStorage.setItem('alunos', JSON.stringify(alunos));
+
+            // Atualiza os funcionários: remove associação com o motorista excluído
+            let funcionarios =
+                JSON.parse(localStorage.getItem('funcionarios')) || [];
+            funcionarios = funcionarios.map((funcionario) => {
+                if (funcionario.motoristaId === motorista.id) {
+                    delete funcionario.motoristaId;
+                    delete funcionario.motorista;
+                    delete funcionario.frota;
+                }
+                return funcionario;
+            });
+            localStorage.setItem('funcionarios', JSON.stringify(funcionarios));
+
+            // Remove o motorista do array e atualiza o localStorage
             motoristas.splice(index, 1);
             localStorage.setItem('motoristas', JSON.stringify(motoristas));
             this.carregarMotoristas();
             alert('Motorista excluído com sucesso!');
+
+            // Se o motorista estiver sendo exibido na área de detalhes, oculta o container
             const container = document.getElementById(
                 'detalhesMotoristaContainer'
             );
@@ -1084,11 +1672,10 @@ class PainelGestorEmpresa {
         if (!container) return;
 
         let html = '';
+
         if (tab === 'dados') {
-            const apto =
-                motorista.validade >= new Date().toISOString().split('T')[0]
-                    ? 'Sim'
-                    : 'Não';
+            const aptoDirigir = motorista.aptoDirigir ? 'Sim' : 'Não';
+            const aptoFretamento = motorista.aptoFretamento ? 'Sim' : 'Não';
             html += `<h4>Dados do Motorista</h4>`;
             html += `<p><strong>Nome:</strong> ${
                 motorista.nomeCompleto || 'Não informado'
@@ -1101,24 +1688,34 @@ class PainelGestorEmpresa {
             html += `<p><strong>Validade:</strong> ${this.formatDateBrazilian(
                 motorista.validade
             )}</p>`;
-            html += `<p><strong>Apto para Dirigir:</strong> ${apto}</p>`;
-            html += `<p><strong>CPF:</strong> ${
-                motorista.cpf || 'Não informado'
-            }</p>`;
-            html += `<p><strong>Data de Nascimento:</strong> ${
-                motorista.dataNascimento
-                    ? this.formatDateBrazilian(motorista.dataNascimento)
-                    : 'Não informado'
-            }</p>`;
-            html += `<p><strong>E-mail:</strong> ${
-                motorista.email || 'Não informado'
-            }</p>`;
-            html += `<p><strong>Telefone:</strong> ${
-                motorista.telefone || 'Não informado'
-            }</p>`;
-            if (motorista.endereco) {
-                html += `<p><strong>Endereço:</strong> ${motorista.endereco.rua}, ${motorista.endereco.numero} - ${motorista.endereco.bairro}, ${motorista.endereco.cidade}/${motorista.endereco.uf} - CEP: ${motorista.endereco.cep}</p>`;
+            html += `<p><strong>Status:</strong> ${motorista.status}</p>`;
+            html += `<p><strong>Apto para Dirigir:</strong> ${aptoDirigir}</p>`;
+            html += `<p><strong>Apto para Fretamento:</strong> ${aptoFretamento}</p>`;
+
+            // Exibe o link somente se estiver pendente e existir link armazenado
+            if (motorista.status === 'pendente' && motorista.link) {
+                html += `<p><strong>Link de Cadastro:</strong> 
+             <a href="${motorista.link}" target="_blank">${motorista.link}</a></p>`;
             }
+
+            if (/d/i.test(motorista.categoria)) {
+                html += `<p><strong>Curso de T.C.:</strong> ${
+                    motorista.cursoTC || '-'
+                }</p>`;
+                if (motorista.cursoTC === 'sim') {
+                    html += `<p><strong>Certificado:</strong> ${
+                        motorista.certificado || '-'
+                    }</p>`;
+                    html += `<p><strong>Validade do CTC:</strong> ${
+                        motorista.validadeCTC
+                            ? this.formatDateBrazilian(motorista.validadeCTC)
+                            : '-'
+                    }</p>`;
+                }
+            }
+
+            // Botão Editar sempre disponível aqui
+            html += `<button class="btn btn-editar" id="btnEditarMotorista">Editar</button>`;
         } else if (tab === 'feedbacks') {
             html += `<h4>Feedbacks</h4><p>Funcionalidade em breve...</p>`;
         } else if (tab === 'rotas') {
@@ -1137,98 +1734,121 @@ class PainelGestorEmpresa {
                     html += `<h4>Frota Responsável</h4><p>Frota não encontrada.</p>`;
                 } else {
                     html += `<h4>Frota Responsável: ${frota.frotaNumero} - ${frota.modelo}</h4>`;
+                    html += `<p><strong>Combustível:</strong> ${frota.combustivel}</p>`;
+                    html += `<p><strong>Assentos:</strong> ${frota.assentos}</p>`;
+                    html += `<p><strong>Uso:</strong> ${frota.uso}</p>`;
                     html += `<p><strong>Disponibilidade:</strong> ${
                         frota.disponibilidade === 'disponivel'
                             ? 'Disponível'
                             : 'Indisponível'
                     }</p>`;
-                    if (frota.agendamentos && frota.agendamentos.length > 0) {
-                        html += `<p><strong>Agendamentos:</strong></p><ul>`;
-                        frota.agendamentos.forEach((a) => {
-                            html += `<li>${
-                                a.descricao || 'Sem descrição'
-                            } - ${this.formatDateBrazilian(a.data)}</li>`;
+
+                    // Filtramos agendamentos futuros
+                    const hoje = new Date().setHours(0, 0, 0, 0);
+                    const agendamentosFuturos = (
+                        frota.agendamentos || []
+                    ).filter((ag) => {
+                        const agData = new Date(ag.data).setHours(0, 0, 0, 0);
+                        return agData >= hoje; // somente futuros ou hoje
+                    });
+                    if (agendamentosFuturos.length > 0) {
+                        html += `<h4>Próximos Agendamentos</h4><ul>`;
+                        agendamentosFuturos.forEach((a) => {
+                            const dataBr = this.formatDateBrazilian(a.data);
+                            html += `<li>${dataBr} - ${a.tipo} - ${
+                                a.descricao || ''
+                            } (${a.estado})</li>`;
                         });
                         html += `</ul>`;
                     } else {
-                        html += `<p>Sem agendamentos.</p>`;
+                        html += `<p>Nenhum agendamento futuro.</p>`;
                     }
                 }
             }
         } else if (tab === 'associados') {
-            const alunos = JSON.parse(localStorage.getItem('alunos')) || [];
-            const funcionarios =
-                JSON.parse(localStorage.getItem('funcionarios')) || [];
+            if (!motorista.aptoFretamento) {
+                html += `<p>Motorista inapto – não é permitido associar alunos ou funcionários.</p>`;
+            } else {
+                const alunos = JSON.parse(localStorage.getItem('alunos')) || [];
+                const funcionarios =
+                    JSON.parse(localStorage.getItem('funcionarios')) || [];
+                const associadosAlunos = alunos.filter(
+                    (user) => user.motoristaId === motorista.id
+                );
+                const disponiveisAlunos = alunos.filter(
+                    (user) => user.motoristaId !== motorista.id
+                );
+                const associadosFuncionarios = funcionarios.filter(
+                    (user) => user.motoristaId === motorista.id
+                );
+                const disponiveisFuncionarios = funcionarios.filter(
+                    (user) => user.motoristaId !== motorista.id
+                );
 
-            // Filtra associados pelo ID do motorista
-            const associadosAlunos = alunos.filter(
-                (user) => user.motoristaId === motorista.id
-            );
-            const disponiveisAlunos = alunos.filter(
-                (user) => user.motoristaId !== motorista.id
-            );
-
-            const associadosFuncionarios = funcionarios.filter(
-                (user) => user.motoristaId === motorista.id
-            );
-            const disponiveisFuncionarios = funcionarios.filter(
-                (user) => user.motoristaId !== motorista.id
-            );
-
-            html += `
-                <div style="display: flex; gap: 2rem;">
-                    <div style="flex: 1;">
-                      <h4>Alunos Disponíveis</h4>
-                      <div id="alunosDisponiveis">`;
-            disponiveisAlunos.forEach((user) => {
-                html += `<div><input type="checkbox" class="chkAluno" value="${user.id}"> ${user.nomeCompleto}</div>`;
-            });
-            html += `</div>
+                html += `
+                    <div style="display: flex; gap: 2rem;">
+                      <div style="flex: 1;">
+                        <h4>Alunos Disponíveis</h4>
+                        <div id="alunosDisponiveis">`;
+                disponiveisAlunos.forEach((user) => {
+                    html += `<div><input type="checkbox" class="chkAluno" value="${user.id}"> ${user.nomeCompleto}</div>`;
+                });
+                html += `</div>
+                      </div>
+                      <div style="flex: 1;">
+                        <h4>Alunos Associados</h4>
+                        <div id="alunosAssociados">`;
+                associadosAlunos.forEach((user) => {
+                    html += `<div><input type="checkbox" class="chkAlunoAssociado" value="${user.id}"> ${user.nomeCompleto}</div>`;
+                });
+                html += `</div>
+                      </div>
                     </div>
-                    <div style="flex: 1;">
-                      <h4>Alunos Associados</h4>
-                      <div id="alunosAssociados">`;
-            associadosAlunos.forEach((user) => {
-                html += `<div><input type="checkbox" class="chkAlunoAssociado" value="${user.id}"> ${user.nomeCompleto}</div>`;
-            });
-            html += `</div>
+                    <button id="btnAdicionarAlunos" class="btn btn-primary" style="margin-top:1rem;">Adicionar Selecionados (Alunos)</button>
+                    <button id="btnRemoverAlunos" class="btn btn-secondary" style="margin-top:1rem;">Remover Selecionados (Alunos)</button>
+                    <hr>
+                    <div style="display: flex; gap: 2rem;">
+                      <div style="flex: 1;">
+                        <h4>Funcionários Disponíveis</h4>
+                        <div id="funcDisponiveis">`;
+                disponiveisFuncionarios.forEach((user) => {
+                    html += `<div><input type="checkbox" class="chkFunc" value="${user.id}"> ${user.nomeCompleto}</div>`;
+                });
+                html += `</div>
+                      </div>
+                      <div style="flex: 1;">
+                        <h4>Funcionários Associados</h4>
+                        <div id="funcAssociados">`;
+                associadosFuncionarios.forEach((user) => {
+                    html += `<div><input type="checkbox" class="chkFuncAssociado" value="${user.id}"> ${user.nomeCompleto}</div>`;
+                });
+                html += `</div>
+                      </div>
                     </div>
-                </div>
-                <button id="btnAdicionarAlunos" class="btn btn-primary" style="margin-top:1rem;">Adicionar Selecionados (Alunos)</button>
-                <button id="btnRemoverAlunos" class="btn btn-secondary" style="margin-top:1rem;">Remover Selecionados (Alunos)</button>
-                <hr>
-                <div style="display: flex; gap: 2rem;">
-                    <div style="flex: 1;">
-                      <h4>Funcionários Disponíveis</h4>
-                      <div id="funcDisponiveis">`;
-            disponiveisFuncionarios.forEach((user) => {
-                html += `<div><input type="checkbox" class="chkFunc" value="${user.id}"> ${user.nomeCompleto}</div>`;
-            });
-            html += `</div>
-                    </div>
-                    <div style="flex: 1;">
-                      <h4>Funcionários Associados</h4>
-                      <div id="funcAssociados">`;
-            associadosFuncionarios.forEach((user) => {
-                html += `<div><input type="checkbox" class="chkFuncAssociado" value="${user.id}"> ${user.nomeCompleto}</div>`;
-            });
-            html += `</div>
-                    </div>
-                </div>
-                <button id="btnAdicionarFunc" class="btn btn-primary" style="margin-top:1rem;">Adicionar Selecionados (Funcionários)</button>
-                <button id="btnRemoverFunc" class="btn btn-secondary" style="margin-top:1rem;">Remover Selecionados (Funcionários)</button>
-                <br><br>
-                <button id="salvarAssociados" class="btn btn-success" style="margin-top:1rem;">Salvar Associados</button>
-            `;
+                    <button id="btnAdicionarFunc" class="btn btn-primary" style="margin-top:1rem;">Adicionar Selecionados (Funcionários)</button>
+                    <button id="btnRemoverFunc" class="btn btn-secondary" style="margin-top:1rem;">Remover Selecionados (Funcionários)</button>
+                    <br><br>
+                    <button id="salvarAssociados" class="btn btn-success" style="margin-top:1rem;">Salvar Associados</button>
+                `;
+            }
         }
 
         container.innerHTML = html;
 
-        // Eventos da aba "associados"
+        if (tab === 'dados') {
+            const btnEditar = document.getElementById('btnEditarMotorista');
+            if (btnEditar) {
+                btnEditar.addEventListener('click', () => {
+                    this.habilitarEdicaoMotorista(index);
+                });
+            }
+        }
+
         if (tab === 'associados') {
-            document
-                .getElementById('btnAdicionarAlunos')
-                .addEventListener('click', () => {
+            const btnAdicionarAlunos =
+                document.getElementById('btnAdicionarAlunos');
+            if (btnAdicionarAlunos) {
+                btnAdicionarAlunos.addEventListener('click', () => {
                     const disponiveis = document.querySelectorAll(
                         '#alunosDisponiveis .chkAluno:checked'
                     );
@@ -1244,9 +1864,11 @@ class PainelGestorEmpresa {
                         div.remove();
                     });
                 });
-            document
-                .getElementById('btnRemoverAlunos')
-                .addEventListener('click', () => {
+            }
+            const btnRemoverAlunos =
+                document.getElementById('btnRemoverAlunos');
+            if (btnRemoverAlunos) {
+                btnRemoverAlunos.addEventListener('click', () => {
                     const associados = document.querySelectorAll(
                         '#alunosAssociados .chkAlunoAssociado:checked'
                     );
@@ -1261,9 +1883,11 @@ class PainelGestorEmpresa {
                         div.remove();
                     });
                 });
-            document
-                .getElementById('btnAdicionarFunc')
-                .addEventListener('click', () => {
+            }
+            const btnAdicionarFunc =
+                document.getElementById('btnAdicionarFunc');
+            if (btnAdicionarFunc) {
+                btnAdicionarFunc.addEventListener('click', () => {
                     const disponiveis = document.querySelectorAll(
                         '#funcDisponiveis .chkFunc:checked'
                     );
@@ -1279,9 +1903,10 @@ class PainelGestorEmpresa {
                         div.remove();
                     });
                 });
-            document
-                .getElementById('btnRemoverFunc')
-                .addEventListener('click', () => {
+            }
+            const btnRemoverFunc = document.getElementById('btnRemoverFunc');
+            if (btnRemoverFunc) {
+                btnRemoverFunc.addEventListener('click', () => {
                     const associados = document.querySelectorAll(
                         '#funcAssociados .chkFuncAssociado:checked'
                     );
@@ -1296,11 +1921,11 @@ class PainelGestorEmpresa {
                         div.remove();
                     });
                 });
-
-            document
-                .getElementById('salvarAssociados')
-                .addEventListener('click', () => {
-                    // Pegar todos os IDs dos associados
+            }
+            const btnSalvarAssociados =
+                document.getElementById('salvarAssociados');
+            if (btnSalvarAssociados) {
+                btnSalvarAssociados.addEventListener('click', () => {
                     let idsAssociados = [];
                     document
                         .querySelectorAll(
@@ -1314,20 +1939,11 @@ class PainelGestorEmpresa {
                         .forEach((chk) => {
                             idsAssociados.push(chk.value);
                         });
-
-                    // Atualiza em localStorage: adiciona/remover o "motoristaId" e nomeMotorista
                     this.atualizarAssociacaoUsuarios(idsAssociados, motorista);
-
                     alert('Usuários associados atualizados!');
-
-                    // Recarrega lista de alunos/funcionários (exibe Motorista na aba "Usuários")
                     this.carregarAlunos();
                     this.carregarFuncionarios();
-
-                    // Atualiza painel financeiro
                     this.renderFinanceiroList();
-
-                    // Recarrega a própria aba 'associados' com dados atualizados de localStorage
                     let updatedMotoristas =
                         JSON.parse(localStorage.getItem('motoristas')) || [];
                     let updatedMotorista = updatedMotoristas.find(
@@ -1339,24 +1955,18 @@ class PainelGestorEmpresa {
                         index
                     );
                 });
+            }
         }
     }
 
-    /**
-     * Agora associamos pelo ID do motorista, de modo que o usuário só perde
-     * a associação se .motoristaId === aquele id.
-     */
     atualizarAssociacaoUsuarios(associadosIds, motorista) {
         let alunos = JSON.parse(localStorage.getItem('alunos')) || [];
         alunos = alunos.map((aluno) => {
-            // Se o aluno está na lista de associados:
             if (associadosIds.includes(aluno.id)) {
-                // Define o motoristaId, o nome do motorista e a frota:
                 aluno.motoristaId = motorista.id;
                 aluno.motorista = motorista.nomeCompleto;
                 aluno.frota = motorista.frotaResponsavel;
             } else {
-                // Se ele já tinha esse motorista e saiu dos selecionados, removemos
                 if (aluno.motoristaId === motorista.id) {
                     delete aluno.motoristaId;
                     delete aluno.motorista;
@@ -1385,7 +1995,6 @@ class PainelGestorEmpresa {
         });
         localStorage.setItem('funcionarios', JSON.stringify(funcionarios));
 
-        // Por fim, atualiza o array de motoristas, substituindo 'm.associados' pela nova lista
         let motoristas = JSON.parse(localStorage.getItem('motoristas')) || [];
         motoristas = motoristas.map((m) => {
             if (m.id === motorista.id) {
@@ -1411,7 +2020,6 @@ class PainelGestorEmpresa {
     }
 
     // ---------------------------- GESTÃO DE VEÍCULOS ----------------------------
-
     initVeiculosEvents() {
         const btnNovoVeiculo = document.getElementById('btnNovoVeiculo');
         const formCadastroVeiculo = document.getElementById(
@@ -2268,6 +2876,7 @@ class PainelGestorEmpresa {
     habilitarEdicaoEmpresa() {
         let empresaAtiva = JSON.parse(localStorage.getItem('empresaAtiva'));
         if (!empresaAtiva) return;
+
         const empresasGestor =
             JSON.parse(localStorage.getItem('empresasGestor')) || [];
         const empresa = empresasGestor.find(

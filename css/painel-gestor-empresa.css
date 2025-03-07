@@ -450,6 +450,15 @@ body {
     a {
         font-size: 13px;
     }
+
+    .btn-primary {
+        align-self: center;
+    }
+
+    h3 {
+        margin-bottom: 15px;
+        color: #1a5dd8;
+    }
 }
 
 /* ------------- Desktop (>= 992px) duas colunas no formulário ------------- */
@@ -463,5 +472,17 @@ body {
     .responsive-form textarea,
     .responsive-form select {
         max-width: 300px;
+    }
+    .responsive-form button[type='submit'] {
+        max-width: 200px; /* mas limita a largura máxima */
+        max-height: 100px;
+        justify-self: center; /* alinha à esquerda para não ficar centralizado */
+        align-self: center;
+        margin-right: 130px;
+    }
+
+    h3 {
+        margin-bottom: 15px;
+        color: #1a5dd8;
     }
 }
