@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
         empresaRelacionamento;
     document.getElementById('matricula').value = matricula;
 
-    // Validações
+    // Validações de formulário
     document
         .getElementById('nomeCompleto')
         .addEventListener('input', function (e) {
@@ -202,7 +202,9 @@ document.addEventListener('DOMContentLoaded', function () {
         .addEventListener('submit', function (e) {
             e.preventDefault();
 
+            // Cria o objeto do funcionário já com o ID (correção principal)
             const funcionario = {
+                id: Date.now().toString(), // <<--- Adicionado para garantir identificação única
                 empresaRelacionamento: document.getElementById(
                     'empresaRelacionamento'
                 ).value,
@@ -221,8 +223,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 bairro: document.getElementById('bairro').value,
                 uf: document.getElementById('uf').value,
                 cidade: document.getElementById('cidade').value,
-                senha: document.getElementById('senha').value, // Certifique-se de que a senha está sendo salva corretamente
-                matricula: document.getElementById('matricula').value, // Certifique-se de que a matrícula está sendo salva
+                senha: document.getElementById('senha').value,
+                matricula: document.getElementById('matricula').value,
             };
 
             const funcionarios =

@@ -61,14 +61,12 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-    // Função para mostrar mensagens de erro
+    // Funções de erro
     function mostrarErro(id, mensagem) {
         const erroElemento = document.getElementById(id);
         erroElemento.textContent = mensagem;
         erroElemento.style.display = 'block';
     }
-
-    // Função para esconder mensagens de erro
     function esconderErro(id) {
         const erroElemento = document.getElementById(id);
         erroElemento.style.display = 'none';
@@ -85,7 +83,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         e.target.value = cep;
 
-        // Validação
         if (cep.replace(/\D/g, '').length !== 8) {
             mostrarErro('erroCep', 'CEP deve ter 8 dígitos.');
         } else {
@@ -119,7 +116,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('telefone').addEventListener('input', function (e) {
         // Remove todos os caracteres não numéricos
         let telefone = e.target.value.replace(/\D/g, '');
-
         // Validação: Verifica se o telefone tem 10 ou 11 dígitos
         if (telefone.length < 10 || telefone.length > 11) {
             mostrarErro('erroTelefone', 'Telefone deve ter 10 ou 11 dígitos.');
@@ -144,15 +140,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Atualiza o valor do campo com a formatação aplicada
         e.target.value = telefone;
-    });
-
-    // Validação de CEP (8 dígitos)
-    document.getElementById('cep').addEventListener('input', function (e) {
-        let cep = e.target.value.replace(/\D/g, '');
-        if (cep.length > 8) {
-            cep = cep.substring(0, 8); // Limita a 8 dígitos
-        }
-        e.target.value = cep;
     });
 
     // Validação de Senha (mínimo 6 caracteres)
@@ -197,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-    // Validação de CPF único
+    // Validação de CPF e E-mail únicos
     document.getElementById('cpf').addEventListener('blur', function (e) {
         const cpf = e.target.value.replace(/\D/g, '');
         const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
@@ -209,7 +196,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Validação de E-mail único
     document.getElementById('email').addEventListener('blur', function (e) {
         const email = e.target.value;
         const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
@@ -223,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Validação de Estado e Cidade (apenas letras)
+    // Validação de UF e Cidade
     document.getElementById('uf').addEventListener('input', function (e) {
         const uf = e.target.value;
         const regex = /^[A-Za-zÀ-ú\s]{2}$/;
@@ -283,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // Verifica se todos os campos obrigatórios estão preenchidos
+            // Verifica campos obrigatórios
             const camposObrigatorios = document.querySelectorAll(
                 'input[required], select[required]'
             );
@@ -306,40 +292,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            // Verifica se o CPF, e-mail e telefone já estão cadastrados
-            const cpf = document.getElementById('cpf').value.replace(/\D/g, '');
-            const email = document.getElementById('email').value;
-            const telefone = document
-                .getElementById('telefone')
-                .value.replace(/\D/g, '');
-            const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-            const cpfExistente = usuarios.find(
-                (usuario) => usuario.cpf === cpf
-            );
-            const emailExistente = usuarios.find(
-                (usuario) => usuario.email === email
-            );
-            const telefoneExistente = usuarios.find(
-                (usuario) => usuario.telefone === telefone
-            );
-
-            if (cpfExistente) {
-                mostrarErro('erroCpf', 'CPF já cadastrado.');
-                return;
-            }
-
-            if (emailExistente) {
-                mostrarErro('erroEmail', 'E-mail já cadastrado.');
-                return;
-            }
-
-            if (telefoneExistente) {
-                mostrarErro('erroTelefone', 'Telefone já cadastrado.');
-                return;
-            }
-
-            // Cria o objeto do usuário
+            // Cria o objeto do aluno já com o ID (correção principal)
             const aluno = {
+                id: Date.now().toString(), // <<--- Adicionado para garantir identificação única
                 matricula: document.getElementById('matricula').value,
                 empresaRelacionamento: document.getElementById(
                     'empresaRelacionamento'
@@ -362,7 +317,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 senha: document.getElementById('senha').value,
             };
 
-            // Adiciona o usuário ao localStorage
+            // Adiciona o aluno ao localStorage
             const alunos = JSON.parse(localStorage.getItem('alunos')) || [];
             alunos.push(aluno);
             localStorage.setItem('alunos', JSON.stringify(alunos));
